@@ -3,8 +3,8 @@
         <header>
             <nav>
                 <ul>
-                    <li><NuxtLink to="/">Home</NuxtLink></li>
-                    <li><NuxtLink to="/about">About</NuxtLink></li>
+                    <li><NuxtLink to="/"><UButton>Home</UButton></NuxtLink></li>
+                    <li><NuxtLink to="/about" class="font-extrabold">About</NuxtLink></li>
                 </ul>
             </nav>
         </header>
