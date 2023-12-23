@@ -4,9 +4,9 @@
     <div class="grid p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 place-items-center">
 
       <div v-for="game in games" class="gameContainer">
-        <a :href='game.href' class="h-full w-full flex justify-center items-center bg-zinc-600">
+        <NuxtLink :to='game.href' class="h-full w-full flex justify-center items-center bg-zinc-600">
           {{ game.name }}
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </div>
