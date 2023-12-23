@@ -2,7 +2,7 @@
     <div class="container mx-auto flex flex-col h-full">
         <header>
             <nav class="flex w-full justify-between bg-zinc-700 p-4">
-                <p>MultiPlays</p>
+                <NuxtLink to="/">Multiplays</NuxtLink>
                 <ul class="flex gap-4">
                     <li>
                         <NuxtLink to="/">Home</NuxtLink>
