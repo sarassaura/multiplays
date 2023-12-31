@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto flex flex-col h-full">
+    <div class="container mx-auto flex flex-col h-full text-slate-50">
         <header>
             <nav class="flex w-full justify-between bg-zinc-700 p-4">
                 <NuxtLink to="/">Multiplays</NuxtLink>

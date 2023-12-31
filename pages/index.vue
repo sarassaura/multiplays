@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-const games = [{ name: 'Tic-Tac-Toe', href: '/tic-tac-toe' }, ...new Array(14).fill({ name: 'Undefined Game', href: '/tic-tac-toe' })]
+const games = [{ name: 'Tic-Tac-Toe', href: '/tic-tac-toe' }, ...new Array(14).fill({ name: 'Undefined Game', href: '/no-game' })]
 
 </script>
 

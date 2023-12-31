@@ -3,6 +3,8 @@
 @tailwind utilities;
 @tailwind variants;
 
-body, html, #__nuxt {
-    height: 100%;
+body,
+html,
+#__nuxt {
+	height: 100%;
 }
