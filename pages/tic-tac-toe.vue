@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col w-full h-full align-center justify-center relative" id="container">
-        <canvas class="bg-slate-500 mx-auto absolute h-full w-full"></canvas>
+    <div class="flex flex-col w-full h-full align-center justify-center" id="container">
+        <canvas class="bg-slate-500 mx-auto"></canvas>
     </div>
 </template>
 
@@ -12,12 +12,12 @@ class GameEngine {
     ctx: CanvasRenderingContext2D;
     width: number;
     height: number
-    constructor(container: HTMLDivElement, canvas: HTMLCanvasElement) {
-        this.container = container
-        this.canvas = canvas
-        this.ctx = canvas.getContext('2d')!
-        this.width = container.clientWidth
-        this.height = container.clientHeight
+    constructor() {
+        this.container = document.querySelector('#container') as HTMLDivElement
+        this.canvas = this.container?.firstElementChild as HTMLCanvasElement
+        this.ctx = this.canvas.getContext('2d')!
+        this.width = this.container.clientWidth
+        this.height = this.container.clientHeight
     }
 
     initialize() {
@@ -30,6 +30,7 @@ class GameEngine {
         this.canvas.width = this.container.clientWidth
         this.width = this.canvas.width
         this.height = this.canvas.height
+        this.draw()
     }
 
     draw() {
@@ -46,22 +47,16 @@ class GameEngine {
 }
 
 onMounted(() => {
-    const container = document.querySelector('#container') as HTMLDivElement
-    const canvas = container?.firstElementChild as HTMLCanvasElement
-
-    const engine = new GameEngine(container, canvas);
+    const engine = new GameEngine();
 
     engine.initialize()
     engine.draw()
 
-    window.addEventListener('resize', engine.resize)
+    window.addEventListener('resize', () => engine.resize())
 })
 onUnmounted(() => {
-    const container = document.querySelector('#container') as HTMLDivElement
-    const canvas = container?.firstElementChild as HTMLCanvasElement
+    const engine = new GameEngine();
 
-    const engine = new GameEngine(container, canvas);
-
-    window.removeEventListener('resize', engine.resize)
+    window.removeEventListener('resize', () => engine.resize())
 })
 </script>
