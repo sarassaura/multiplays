@@ -14,7 +14,7 @@ onMounted(() => {
     canvas = container.firstElementChild as HTMLCanvasElement;
     engine = new GameEngine(container, canvas);
 
-    engine.initialize();
+    engine.initialize('no-game');
     engine.draw();
 
     window.addEventListener('resize', () => engine.resize());

@@ -12,8 +12,8 @@ export default class GameEngine {
 		this.height = this.container.clientHeight;
 	}
 
-	initialize() {
-		this.canvas.id = 'tictactoe';
+	initialize(title: string) {
+		this.canvas.id = title;
 		this.resize();
 	}
 

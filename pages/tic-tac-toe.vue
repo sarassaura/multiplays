@@ -7,14 +7,14 @@
 <script lang="ts" setup>
 let container: HTMLDivElement;
 let canvas: HTMLCanvasElement;
-let engine: typeof GameEngine.prototype;
+let engine: typeof TicTacToe.prototype;
 
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
     canvas = container.firstElementChild as HTMLCanvasElement;
-    engine = new GameEngine(container, canvas);
+    engine = new TicTacToe(container, canvas);
 
-    engine.initialize();
+    engine.initialize('tictactoe');
     engine.draw();
 
     window.addEventListener('resize', () => engine.resize());
