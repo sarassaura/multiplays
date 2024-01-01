@@ -7,12 +7,12 @@
 <script lang="ts" setup>
 let container: HTMLDivElement;
 let canvas: HTMLCanvasElement;
-let engine: typeof GameEngine.prototype;
+let engine: typeof NoGame.prototype;
 
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
     canvas = container.firstElementChild as HTMLCanvasElement;
-    engine = new GameEngine(container, canvas);
+    engine = new NoGame(container, canvas);
 
     engine.initialize('no-game');
     engine.draw();
