@@ -92,9 +92,11 @@ class GameEngine {
 
         this.ctx.beginPath();
 
+        this.ctx.rect(centerX + x, centerY + y, width, height);
+
         if (options?.color) {
             this.ctx.fillStyle = options?.color || 'rgb(0,0,0)';
-            this.ctx.fillRect(centerX + x, centerY + y, width, height);
+            this.ctx.fill()
         }
 
         if (options?.strokeColor || (!options?.color && !options?.strokeColor)) {
