@@ -12,37 +12,17 @@ export default class GameEngine {
 		this.height = this.container.clientHeight;
 	}
 
-	initialize(title: string) {
+	initialize(title: string, draw: () => void) {
 		this.canvas.id = title;
-		this.resize();
+		this.resize(draw);
 	}
 
-	resize() {
+	resize(draw: () => void) {
 		this.canvas.height = this.container.clientHeight;
 		this.canvas.width = this.container.clientWidth;
 		this.width = this.canvas.width;
 		this.height = this.canvas.height;
-		this.draw();
-	}
-
-	draw() {
-		this.ctx.clearRect(0, 0, this.width, this.height);
-		this.createRect(200, 200, { strokeColor: 'rgb(0,255,255)', thick: 10 });
-		this.createRect(200, 200, { x: 50, y: 50 });
-		this.createRect(200, 200, {
-			x: -50,
-			y: -50,
-			color: 'rgb(255,255,0)',
-			strokeColor: 'rgb(0,255,255)'
-		});
-		this.createLine(0, 0, this.width, this.height, {
-			thick: 10,
-			color: 'rgba(0,255,0,0.2)'
-		});
-		this.createLine(10, this.height - 10, this.width - 10, 10, {
-			lineCap: 'round'
-		});
-		this.createCircle(100, { thick: 10, color: 'rgb(255,0,255)' });
+		draw();
 	}
 
 	createLine(
