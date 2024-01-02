@@ -23,6 +23,15 @@ export default class NoGame extends GameEngine {
 	update(e: MouseEvent) {
 		// let x = e.pageX - canvas.offsetLeft;
 		// let y = e.pageY - canvas.offsetTop;
-		console.log('Clicked');
+		this.shapes?.forEach((shape) => {
+			if (shape.type == 'Rect') {
+				if (shape.options?.strokeColor) {
+					shape.options.strokeColor = undefined;
+				} else {
+					shape.options!.strokeColor = 'rgb(0,255,255)';
+				}
+			}
+		});
+		this.render();
 	}
 }
