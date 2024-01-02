@@ -1,18 +1,21 @@
 <template>
-    <div class="flex flex-col w-full h-full align-center justify-center" id="container">
-        <canvas class="mx-auto"></canvas>
+    <div class="flex flex-col w-full h-full align-center justify-center relative" id="container">
+        <canvas class="mx-auto absolute"></canvas>
+        <canvas class="mx-auto absolute invisible"></canvas>
     </div>
 </template>
 
 <script lang="ts" setup>
 let container: HTMLDivElement;
 let canvas: HTMLCanvasElement;
+let hitBox: HTMLCanvasElement
 let engine: typeof TicTacToe.prototype;
 
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
     canvas = container.firstElementChild as HTMLCanvasElement;
-    engine = new TicTacToe(container, canvas);
+    hitBox = container.lastElementChild as HTMLCanvasElement;
+    engine = new TicTacToe(container, canvas, hitBox);
 
     engine.initialize();
 
