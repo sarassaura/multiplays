@@ -42,37 +42,44 @@ export default class GameEngine {
 	}
 
 	renderShape(shape: Shape, ctx: CanvasRenderingContext2D) {
-		if (shape.type == 'Line') {
-			this.drawLine(
-				shape.initialPoint.x,
-				shape.initialPoint.y,
-				shape.endPoint.x,
-				shape.endPoint.y,
-				ctx,
-				{
-					thick: shape.options?.thick,
-					lineCap: shape.options?.lineCap,
-					color: shape.options?.color
-				}
-			);
-		}
-		if (shape.type == 'Rect') {
-			this.drawRect(shape.width, shape.height, ctx, {
-				x: shape.centerPoint?.x,
-				y: shape.centerPoint?.y,
-				color: shape.options?.color,
-				strokeColor: shape.options?.strokeColor,
-				thick: shape.options?.thick
-			});
-		}
-		if (shape.type == 'Circle') {
-			this.drawCircle(shape.radius, ctx, {
-				x: shape.centerPoint?.x,
-				y: shape.centerPoint?.y,
-				color: shape.options?.color,
-				strokeColor: shape.options?.strokeColor,
-				thick: shape.options?.thick
-			});
+		switch (shape.type) {
+			case 'Line':
+				this.drawLine(
+					shape.initialPoint.x,
+					shape.initialPoint.y,
+					shape.endPoint.x,
+					shape.endPoint.y,
+					ctx,
+					{
+						thick: shape.options?.thick,
+						lineCap: shape.options?.lineCap,
+						color: shape.options?.color
+					}
+				);
+				break;
+
+			case 'Rect':
+				this.drawRect(shape.width, shape.height, ctx, {
+					x: shape.centerPoint?.x,
+					y: shape.centerPoint?.y,
+					color: shape.options?.color,
+					strokeColor: shape.options?.strokeColor,
+					thick: shape.options?.thick
+				});
+				break;
+
+			case 'Circle':
+				this.drawCircle(shape.radius, ctx, {
+					x: shape.centerPoint?.x,
+					y: shape.centerPoint?.y,
+					color: shape.options?.color,
+					strokeColor: shape.options?.strokeColor,
+					thick: shape.options?.thick
+				});
+				break;
+
+			default:
+				console.log('Invalid shape');
 		}
 	}
 
