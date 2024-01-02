@@ -8,16 +8,16 @@ export default class NoGame extends GameEngine {
 	}
 
 	initialState() {
-		this.createRect(200, 200, this.ctx, {
+		this.createRect(200, 200, this.shapes, {
 			color: 'rgba(255,0,0,0.4)',
 			strokeColor: 'rgb(0,255,255)'
 		});
-		this.createRect(200, 200, this.ctx, {
+		this.createRect(200, 200, this.shapes, {
 			x: 50,
 			y: 50,
 			color: 'rgba(0,255,0,0.4)'
 		});
-		this.createRect(200, 200, this.ctx, {
+		this.createRect(200, 200, this.shapes, {
 			x: -50,
 			y: -50,
 			color: 'rgba(0,0,255, 0.4)'

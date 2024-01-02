@@ -6,8 +6,8 @@ export default class GameEngine {
 	c: CanvasRenderingContext2D;
 	width: number;
 	height: number;
-	shapes?: Array<Shape>;
-	boxes?: Array<Shape>;
+	shapes: Array<Shape>;
+	boxes: Array<Shape>;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
@@ -37,8 +37,8 @@ export default class GameEngine {
 	render() {
 		this.ctx.clearRect(0, 0, this.width, this.height);
 		this.c.clearRect(0, 0, this.width, this.height);
-		this.shapes?.forEach((shape) => this.renderShape(shape, this.ctx));
-		this.boxes?.forEach((shape) => this.renderShape(shape, this.c));
+		this.shapes.forEach((shape) => this.renderShape(shape, this.ctx));
+		this.boxes.forEach((shape) => this.renderShape(shape, this.c));
 	}
 
 	renderShape(shape: Shape, ctx: CanvasRenderingContext2D) {
@@ -180,55 +180,35 @@ export default class GameEngine {
 		py1: number,
 		px2: number,
 		py2: number,
-		ctx: CanvasRenderingContext2D,
+		elements: Array<Shape>,
 		options?: {
 			thick?: number;
 			lineCap?: 'round' | 'butt' | 'square';
 			color?: string;
 		}
 	) {
-		if (ctx == this.ctx) {
-			this.shapes?.push({
-				type: 'Line',
-				initialPoint: {
-					x: px1,
-					y: py1
-				},
-				endPoint: {
-					x: px2,
-					y: py2
-				},
-				options: {
-					thick: options?.thick,
-					lineCap: options?.lineCap,
-					color: options?.color
-				}
-			});
-		}
-		if (ctx == this.c) {
-			this.boxes?.push({
-				type: 'Line',
-				initialPoint: {
-					x: px1,
-					y: py1
-				},
-				endPoint: {
-					x: px2,
-					y: py2
-				},
-				options: {
-					thick: options?.thick,
-					lineCap: options?.lineCap,
-					color: options?.color
-				}
-			});
-		}
+		elements.push({
+			type: 'Line',
+			initialPoint: {
+				x: px1,
+				y: py1
+			},
+			endPoint: {
+				x: px2,
+				y: py2
+			},
+			options: {
+				thick: options?.thick,
+				lineCap: options?.lineCap,
+				color: options?.color
+			}
+		});
 	}
 
 	createRect(
 		width: number,
 		height: number,
-		ctx: CanvasRenderingContext2D,
+		elements: Array<Shape>,
 		options?: {
 			x?: number;
 			y?: number;
@@ -237,43 +217,25 @@ export default class GameEngine {
 			strokeColor?: string;
 		}
 	) {
-		if (ctx == this.ctx) {
-			this.shapes?.push({
-				type: 'Rect',
-				width,
-				height,
-				centerPoint: {
-					x: options?.x,
-					y: options?.y
-				},
-				options: {
-					thick: options?.thick,
-					color: options?.color,
-					strokeColor: options?.strokeColor
-				}
-			});
-		}
-		if (ctx == this.c) {
-			this.boxes?.push({
-				type: 'Rect',
-				width,
-				height,
-				centerPoint: {
-					x: options?.x,
-					y: options?.y
-				},
-				options: {
-					thick: options?.thick,
-					color: options?.color,
-					strokeColor: options?.strokeColor
-				}
-			});
-		}
+		elements.push({
+			type: 'Rect',
+			width,
+			height,
+			centerPoint: {
+				x: options?.x,
+				y: options?.y
+			},
+			options: {
+				thick: options?.thick,
+				color: options?.color,
+				strokeColor: options?.strokeColor
+			}
+		});
 	}
 
 	createCircle(
 		radius: number,
-		ctx: CanvasRenderingContext2D,
+		elements: Array<Shape>,
 		options?: {
 			x?: number;
 			y?: number;
@@ -282,36 +244,19 @@ export default class GameEngine {
 			strokeColor?: string;
 		}
 	) {
-		if (ctx == this.ctx) {
-			this.shapes?.push({
-				type: 'Circle',
-				radius,
-				centerPoint: {
-					x: options?.x,
-					y: options?.y
-				},
-				options: {
-					thick: options?.thick,
-					color: options?.color,
-					strokeColor: options?.strokeColor
-				}
-			});
-		}
-		if (ctx == this.c) {
-			this.boxes?.push({
-				type: 'Circle',
-				radius,
-				centerPoint: {
-					x: options?.x,
-					y: options?.y
-				},
-				options: {
-					thick: options?.thick,
-					color: options?.color,
-					strokeColor: options?.strokeColor
-				}
-			});
-		}
+		elements?.push({
+			type: 'Circle',
+			radius,
+			centerPoint: {
+				x: options?.x,
+				y: options?.y
+			},
+			options: {
+				thick: options?.thick,
+				color: options?.color,
+				strokeColor: options?.strokeColor
+			}
+		});
 	}
 }
 
