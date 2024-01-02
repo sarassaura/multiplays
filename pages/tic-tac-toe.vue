@@ -20,10 +20,10 @@ onMounted(() => {
     engine.initialize();
 
     window.addEventListener('resize', () => engine.resize());
-    canvas.addEventListener('click', (e) => engine.update(e))
+    hitBox.addEventListener('click', (e) => engine.update(e))
 });
 onUnmounted(() => {
     window.removeEventListener('resize', () => engine.resize());
-    canvas.removeEventListener('click', (e) => engine.update(e))
+    hitBox.removeEventListener('click', (e) => engine.update(e))
 });
 </script>
