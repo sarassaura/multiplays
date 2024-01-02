@@ -70,9 +70,11 @@ export default class GameEngine {
 			color?: string;
 		}
 	) {
+		let centerX = this.width / 2;
+		let centerY = this.height / 2;
 		this.ctx.beginPath();
-		this.ctx.moveTo(px1, py1);
-		this.ctx.lineTo(px2, py2);
+		this.ctx.moveTo(px1 + centerX, py1 + centerY);
+		this.ctx.lineTo(px2 + centerX, py2 + centerY);
 
 		this.ctx.lineWidth = options?.thick || 5;
 		this.ctx.strokeStyle = options?.color || 'rgb(0,0,0)';
