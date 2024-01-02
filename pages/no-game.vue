@@ -8,25 +8,19 @@
 let container: HTMLDivElement;
 let canvas: HTMLCanvasElement;
 let engine: typeof NoGame.prototype;
-let draw: () => void;
 
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
     canvas = container.firstElementChild as HTMLCanvasElement;
     engine = new NoGame(container, canvas);
 
-    draw = () => {
-        engine.ctx.clearRect(0, 0, engine.width, engine.height);
-        engine.createRect(200, 200, { color: 'rgba(255,0,0,0.4)', strokeColor: 'rgb(0,255,255)' });
-        engine.createRect(200, 200, { x: 50, y: 50, color: 'rgba(0,255,0,0.4)' });
-        engine.createRect(200, 200, { x: -50, y: -50, color: 'rgba(0,0,255, 0.4)' });
-    }
+    engine.initialize();
 
-    engine.initialize('no-game', draw);
-
-    window.addEventListener('resize', () => engine.resize(draw));
+    window.addEventListener('resize', () => engine.resize());
+    canvas.addEventListener('click', (e) => engine.update(e))
 })
 onUnmounted(() => {
-    window.removeEventListener('resize', () => engine.resize(draw));
+    window.removeEventListener('resize', () => engine.resize());
+    canvas.removeEventListener('click', (e) => engine.update(e))
 })
 </script>
