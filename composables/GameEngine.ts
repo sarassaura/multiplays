@@ -7,7 +7,7 @@ export default class GameEngine {
 	width: number;
 	height: number;
 	shapes: Array<Shape>;
-	boxes: Array<Shape>;
+	boxes: Record<string, Shape>;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
@@ -21,7 +21,7 @@ export default class GameEngine {
 		this.width = this.container.clientWidth;
 		this.height = this.container.clientHeight;
 		this.shapes = [];
-		this.boxes = [];
+		this.boxes = {};
 	}
 
 	resize() {
@@ -38,7 +38,9 @@ export default class GameEngine {
 		this.ctx.clearRect(0, 0, this.width, this.height);
 		this.c.clearRect(0, 0, this.width, this.height);
 		this.shapes.forEach((shape) => this.renderShape(shape, this.ctx));
-		this.boxes.forEach((shape) => this.renderShape(shape, this.c));
+		Object.values(this.boxes).forEach((shape) =>
+			this.renderShape(shape, this.c)
+		);
 	}
 
 	renderShape(shape: Shape, ctx: CanvasRenderingContext2D) {
@@ -187,14 +189,13 @@ export default class GameEngine {
 		py1: number,
 		px2: number,
 		py2: number,
-		elements: Array<Shape>,
 		options?: {
 			thick?: number;
 			lineCap?: 'round' | 'butt' | 'square';
 			color?: string;
 		}
 	) {
-		elements.push({
+		return {
 			type: 'Line',
 			initialPoint: {
 				x: px1,
@@ -209,13 +210,12 @@ export default class GameEngine {
 				lineCap: options?.lineCap,
 				color: options?.color
 			}
-		});
+		};
 	}
 
 	createRect(
 		width: number,
 		height: number,
-		elements: Array<Shape>,
 		options?: {
 			x?: number;
 			y?: number;
@@ -224,7 +224,7 @@ export default class GameEngine {
 			strokeColor?: string;
 		}
 	) {
-		elements.push({
+		return {
 			type: 'Rect',
 			width,
 			height,
@@ -237,12 +237,11 @@ export default class GameEngine {
 				color: options?.color,
 				strokeColor: options?.strokeColor
 			}
-		});
+		};
 	}
 
 	createCircle(
 		radius: number,
-		elements: Array<Shape>,
 		options?: {
 			x?: number;
 			y?: number;
@@ -251,7 +250,7 @@ export default class GameEngine {
 			strokeColor?: string;
 		}
 	) {
-		elements?.push({
+		return {
 			type: 'Circle',
 			radius,
 			centerPoint: {
@@ -263,7 +262,7 @@ export default class GameEngine {
 				color: options?.color,
 				strokeColor: options?.strokeColor
 			}
-		});
+		};
 	}
 }
 
