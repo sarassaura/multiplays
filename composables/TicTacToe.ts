@@ -71,8 +71,8 @@ export default class TicTacToe extends GameEngine {
 	}
 
 	update(e: MouseEvent) {
-		let x = e.pageX - this.canvas.offsetLeft;
-		let y = e.pageY - this.canvas.offsetTop;
+		let x = e.clientX - this.container.offsetLeft;
+		let y = e.clientY - this.container.offsetTop;
 		let rgb = this.c.getImageData(x, y, 1, 1).data;
 		console.log(rgb);
 		// this.render();

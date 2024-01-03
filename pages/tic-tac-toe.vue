@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col w-full h-full align-center justify-center" id="container">
-        <canvas id="tic-tac-toe"></canvas>
+    <div class="flex flex-col w-full h-full relative" id="container">
+        <canvas id="tic-tac-toe" class="absolute"></canvas>
     </div>
 </template>
 
