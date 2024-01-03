@@ -2,7 +2,6 @@ import GameEngine from './GameEngine';
 
 export default class TicTacToe extends GameEngine {
 	initialize() {
-		this.canvas.id = 'tic-tac-toe';
 		this.initialState();
 		this.resize();
 	}
@@ -72,8 +71,10 @@ export default class TicTacToe extends GameEngine {
 	}
 
 	update(e: MouseEvent) {
-		// let x = e.pageX - canvas.offsetLeft;
-		// let y = e.pageY - canvas.offsetTop;
+		let x = e.pageX - this.canvas.offsetLeft;
+		let y = e.pageY - this.canvas.offsetTop;
+		let rgb = this.c.getImageData(x, y, 1, 1).data;
+		console.log(rgb);
 		// this.render();
 	}
 }
