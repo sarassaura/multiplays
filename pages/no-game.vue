@@ -19,8 +19,6 @@ onMounted(() => {
     container.appendChild(hitBox);
     engine = new NoGame(container, canvas, hitBox);
 
-    engine.initialize();
-
     window.addEventListener('resize', () => engine.resize());
     hitBox.addEventListener('pointerdown', (e) => engine.update(e))
 })

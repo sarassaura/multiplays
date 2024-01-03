@@ -8,9 +8,6 @@ export default class TicTacToe extends GameEngine {
 		hitBox: HTMLCanvasElement
 	) {
 		super(container, canvas, hitBox);
-	}
-
-	initialize() {
 		this.initialState();
 		this.resize();
 	}

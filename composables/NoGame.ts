@@ -8,10 +8,6 @@ export default class NoGame extends GameEngine {
 		hitBox: HTMLCanvasElement
 	) {
 		super(container, canvas, hitBox);
-	}
-
-	initialize() {
-		this.canvas.id = 'no-game';
 		this.initialState();
 		this.resize();
 	}
