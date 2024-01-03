@@ -1,15 +1,13 @@
-import BasicShapes from './BasicShapes';
+import { createRect } from './BasicShapes';
 import GameEngine from './GameEngine';
 
 export default class NoGame extends GameEngine {
-	b: BasicShapes;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
 		hitBox: HTMLCanvasElement
 	) {
 		super(container, canvas, hitBox);
-		this.b = new BasicShapes();
 	}
 
 	initialize() {
@@ -20,20 +18,20 @@ export default class NoGame extends GameEngine {
 
 	initialState() {
 		this.shapes.push(
-			this.b.createRect(200, 200, {
+			createRect(200, 200, {
 				color: 'rgba(255,0,0,0.4)',
 				strokeColor: 'rgb(0,255,255)'
 			}) as Rect
 		);
 		this.shapes.push(
-			this.b.createRect(200, 200, {
+			createRect(200, 200, {
 				x: 50,
 				y: 50,
 				color: 'rgba(0,255,0,0.4)'
 			}) as Rect
 		);
 		this.shapes.push(
-			this.b.createRect(200, 200, {
+			createRect(200, 200, {
 				x: -50,
 				y: -50,
 				color: 'rgba(0,0,255, 0.4)'
