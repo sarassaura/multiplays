@@ -25,12 +25,12 @@ export default class GameEngine {
 	}
 
 	resize() {
-		this.canvas.height = this.container.clientHeight;
-		this.canvas.width = this.container.clientWidth;
-		this.hitBox.height = this.container.clientHeight;
-		this.hitBox.width = this.container.clientWidth;
-		this.width = this.canvas.width;
-		this.height = this.canvas.height;
+		this.width = this.container.clientWidth;
+		this.height = this.container.clientHeight;
+		this.canvas.height = this.height;
+		this.canvas.width = this.width;
+		this.hitBox.height = this.height;
+		this.hitBox.width = this.width;
 		this.render();
 	}
 
