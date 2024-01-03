@@ -20,10 +20,10 @@ onMounted(() => {
     engine.initialize();
 
     window.addEventListener('resize', () => engine.resize());
-    hitBox.addEventListener('click', (e) => engine.update(e))
+    hitBox.addEventListener('pointerdown', (e) => engine.update(e))
 })
 onUnmounted(() => {
     window.removeEventListener('resize', () => engine.resize());
-    hitBox.removeEventListener('click', (e) => engine.update(e))
+    hitBox.removeEventListener('pointerdown', (e) => engine.update(e))
 })
 </script>
