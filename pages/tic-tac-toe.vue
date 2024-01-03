@@ -13,7 +13,7 @@ let engine: typeof TicTacToe.prototype;
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
     canvas = container.firstElementChild as HTMLCanvasElement;
-    let hitBox = document.createElement('canvas') as HTMLCanvasElement;
+    hitBox = document.createElement('canvas') as HTMLCanvasElement;
     hitBox.style.position = 'absolute';
     hitBox.style.opacity = '0.0';
     container.appendChild(hitBox);
