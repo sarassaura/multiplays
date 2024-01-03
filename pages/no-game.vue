@@ -1,7 +1,6 @@
 <template>
     <div class="flex flex-col w-full h-full align-center justify-center relative" id="container">
-        <canvas class="mx-auto absolute"></canvas>
-        <canvas class="mx-auto absolute"></canvas>
+        <canvas id="no-game" class="absolute"></canvas>
     </div>
 </template>
 
@@ -14,7 +13,10 @@ let engine: typeof NoGame.prototype;
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
     canvas = container.firstElementChild as HTMLCanvasElement;
-    hitBox = container.lastElementChild as HTMLCanvasElement;
+    hitBox = document.createElement('canvas') as HTMLCanvasElement;
+    hitBox.style.position = 'absolute';
+    hitBox.style.opacity = '0.0';
+    container.appendChild(hitBox);
     engine = new NoGame(container, canvas, hitBox);
 
     engine.initialize();
