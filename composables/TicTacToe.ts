@@ -3,7 +3,6 @@ import GameEngine from './GameEngine';
 
 export default class TicTacToe extends GameEngine {
 	tiles;
-	Xtime: boolean;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
@@ -13,7 +12,6 @@ export default class TicTacToe extends GameEngine {
 		this.initialState();
 		this.resize();
 		this.tiles = {};
-		this.Xtime = true;
 	}
 
 	initialState() {
@@ -93,22 +91,26 @@ export default class TicTacToe extends GameEngine {
 		let y = e.clientY - this.container.offsetTop;
 		let rgb = this.c.getImageData(x, y, 1, 1).data;
 		let box = this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]] as Rect;
+		let keys = Object.keys(this.boxes);
+		let length = keys.length;
 
 		if (box) {
-			switch (this.Xtime) {
-				case true:
-					this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
-					delete this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]];
-					break;
-				case false:
-					this.createO(box.centerPoint!.x!, box.centerPoint!.y!);
-					delete this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]];
-					break;
+			this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
+			delete this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]];
+			length--;
+
+			if (length > 0) {
+				let random = Math.floor(Math.random() * length);
+
+				let randomBox = Object.values(this.boxes)[random] as Rect;
+
+				this.createO(randomBox.centerPoint!.x!, randomBox.centerPoint!.y!);
+				delete this.boxes[Object.keys(this.boxes)[random]];
 			}
-			this.Xtime = !this.Xtime;
+
 			this.render();
 		} else {
-			if (Object.keys(this.boxes).length == 0) {
+			if (length == 0) {
 				this.reset();
 			}
 		}
@@ -118,7 +120,6 @@ export default class TicTacToe extends GameEngine {
 		this.shapes = [];
 		this.boxes = {};
 		this.initialState();
-		this.Xtime = true;
 		this.render();
 	}
 
