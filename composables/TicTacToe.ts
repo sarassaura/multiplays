@@ -2,6 +2,8 @@ import { createCircle, createLine, createRect } from './BasicShapes';
 import GameEngine from './GameEngine';
 
 export default class TicTacToe extends GameEngine {
+	tiles;
+	Xtime: boolean;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
@@ -10,6 +12,8 @@ export default class TicTacToe extends GameEngine {
 		super(container, canvas, hitBox);
 		this.initialState();
 		this.resize();
+		this.tiles = {};
+		this.Xtime = true;
 	}
 
 	initialState() {
@@ -91,14 +95,41 @@ export default class TicTacToe extends GameEngine {
 		let box = this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]] as Rect;
 
 		if (box) {
-			this.shapes.push(
-				createCircle(38, {
-					x: box.centerPoint?.x,
-					y: box.centerPoint?.y,
-					strokeColor: 'rgb(255,255,255)'
-				}) as Circle
-			);
+			switch (this.Xtime) {
+				case true:
+					this.createO(box.centerPoint!.x!, box.centerPoint!.y!);
+					break;
+				case false:
+					this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
+					break;
+			}
+			this.Xtime = !this.Xtime;
 		}
 		this.render();
+	}
+
+	createO(x: number, y: number) {
+		this.shapes.push(
+			createCircle(38, {
+				x,
+				y,
+				strokeColor: 'rgb(255,255,255)'
+			}) as Circle
+		);
+	}
+
+	createX(x: number, y: number) {
+		this.shapes.push(
+			createLine(x - 38, y - 38, x + 38, y + 38, {
+				lineCap: 'round',
+				color: 'rgb(255,255,255)'
+			}) as Line
+		);
+		this.shapes.push(
+			createLine(x - 38, y + 38, x + 38, y - 38, {
+				lineCap: 'round',
+				color: 'rgb(255,255,255)'
+			}) as Line
+		);
 	}
 }
