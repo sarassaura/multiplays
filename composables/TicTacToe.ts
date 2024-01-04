@@ -96,25 +96,25 @@ export default class TicTacToe extends GameEngine {
 		let rgb = this.c.getImageData(x, y, 1, 1).data;
 		let box = this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]] as Rect;
 
-		if (box && this.plays < 9) {
+		if (box && this.plays <= 9) {
 			switch (this.Xtime) {
 				case true:
-					this.createO(box.centerPoint!.x!, box.centerPoint!.y!);
+					this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
 					break;
 				case false:
-					this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
+					this.createO(box.centerPoint!.x!, box.centerPoint!.y!);
 					break;
 			}
 			this.plays++;
 			this.Xtime = !this.Xtime;
 			this.render();
 		}
-		if (this.plays >= 9) {
+		if (this.plays > 9) {
 			// reset
 			this.shapes = [];
 			this.boxes = {};
 			this.initialState();
-			this.Xtime = false;
+			this.Xtime = true;
 			this.plays = 0;
 			this.render();
 		}
