@@ -4,6 +4,7 @@ import GameEngine from './GameEngine';
 export default class TicTacToe extends GameEngine {
 	tiles;
 	Xtime: boolean;
+	plays: number;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
@@ -14,6 +15,7 @@ export default class TicTacToe extends GameEngine {
 		this.resize();
 		this.tiles = {};
 		this.Xtime = true;
+		this.plays = 0;
 	}
 
 	initialState() {
@@ -94,7 +96,7 @@ export default class TicTacToe extends GameEngine {
 		let rgb = this.c.getImageData(x, y, 1, 1).data;
 		let box = this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]] as Rect;
 
-		if (box) {
+		if (box && this.plays < 9) {
 			switch (this.Xtime) {
 				case true:
 					this.createO(box.centerPoint!.x!, box.centerPoint!.y!);
@@ -103,9 +105,19 @@ export default class TicTacToe extends GameEngine {
 					this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
 					break;
 			}
+			this.plays++;
 			this.Xtime = !this.Xtime;
+			this.render();
 		}
-		this.render();
+		if (this.plays >= 9) {
+			// reset
+			this.shapes = [];
+			this.boxes = {};
+			this.initialState();
+			this.Xtime = false;
+			this.plays = 0;
+			this.render();
+		}
 	}
 
 	createO(x: number, y: number) {
