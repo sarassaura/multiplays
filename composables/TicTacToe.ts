@@ -39,51 +39,17 @@ export default class TicTacToe extends GameEngine {
 				color: 'rgb(255,255,255)'
 			}) as Line
 		);
-		this.boxes['0,200,0'] = createRect(100, 100, {
-			x: -100,
-			y: -100,
-			color: 'rgb(0,200,0)'
-		}) as Rect;
-		this.boxes['200,0,0'] = createRect(100, 100, {
-			x: 0,
-			y: -100,
-			color: 'rgb(200,0,0)'
-		}) as Rect;
-		this.boxes['0,0,200'] = createRect(100, 100, {
-			x: 100,
-			y: -100,
-			color: 'rgb(0,0,200)'
-		}) as Rect;
-		this.boxes['0,100,0'] = createRect(100, 100, {
-			x: -100,
-			y: 0,
-			color: 'rgb(0,100,0)'
-		}) as Rect;
-		this.boxes['100,0,0'] = createRect(100, 100, {
-			x: 0,
-			y: 0,
-			color: 'rgb(100,0,0)'
-		}) as Rect;
-		this.boxes['0,0,100'] = createRect(100, 100, {
-			x: 100,
-			y: 0,
-			color: 'rgb(0,0,100)'
-		}) as Rect;
-		this.boxes['0,50,0'] = createRect(100, 100, {
-			x: -100,
-			y: 100,
-			color: 'rgb(0,50,0)'
-		}) as Rect;
-		this.boxes['50,0,0'] = createRect(100, 100, {
-			x: 0,
-			y: 100,
-			color: 'rgb(50,0,0)'
-		}) as Rect;
-		this.boxes['0,0,50'] = createRect(100, 100, {
-			x: 100,
-			y: 100,
-			color: 'rgb(0,0,50)'
-		}) as Rect;
+
+		for (let i = -100; i <= 100; i += 100) {
+			for (let j = -100; j <= 100; j += 100) {
+				let random = this.randomColor();
+				this.boxes[random] = createRect(100, 100, {
+					x: i,
+					y: j,
+					color: `rgb(${random})`
+				}) as Rect;
+			}
+		}
 	}
 
 	update(e: PointerEvent) {
@@ -100,7 +66,7 @@ export default class TicTacToe extends GameEngine {
 			length--;
 
 			if (length > 0) {
-				let random = Math.floor(Math.random() * length);
+				let random = this.random(length);
 
 				let randomBox = Object.values(this.boxes)[random] as Rect;
 
@@ -146,5 +112,22 @@ export default class TicTacToe extends GameEngine {
 				color: 'rgb(255,255,255)'
 			}) as Line
 		);
+	}
+
+	random(length: number) {
+		return Math.floor(Math.random() * length);
+	}
+
+	randomColor(): string {
+		let r = this.random(256);
+		let g = this.random(256);
+		let b = this.random(256);
+
+		let color = r + ',' + g + ',' + b;
+
+		if (this.boxes[color]) {
+			return this.randomColor();
+		}
+		return color;
 	}
 }
