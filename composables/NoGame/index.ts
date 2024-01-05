@@ -49,10 +49,7 @@ export default class NoGame extends GameEngine {
 
 	render() {
 		this.cleanCanvas();
-
-		this.shapes.forEach((shape) =>
-			renderShape(shape, this.ctx, this.width, this.height)
-		);
+		renderShapes(this.shapes, this.ctx, this.width, this.height);
 	}
 
 	update(e: PointerEvent) {

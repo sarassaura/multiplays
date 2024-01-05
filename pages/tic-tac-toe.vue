@@ -1,32 +1,29 @@
 <template>
     <div class="flex flex-col w-full h-full relative" id="container">
-        <canvas id="tic-tac-toe" class="absolute"></canvas>
     </div>
 </template>
 
 <script lang="ts" setup>
+import Layer from '~/composables/TicTacToe/layer';
+
 let container: HTMLDivElement;
-let canvas: HTMLCanvasElement;
-let hitBox: HTMLCanvasElement
+let hitBox: Layer;
 let engine: typeof TicTacToe.prototype;
 
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
 
-    canvas = container.firstElementChild as HTMLCanvasElement;
+    let background = new Layer(container);
+    hitBox = new Layer(container);
+    hitBox.invisible();
 
-    hitBox = document.createElement('canvas') as HTMLCanvasElement;
-    hitBox.style.position = 'absolute';
-    hitBox.style.opacity = '0.0';
-    container.appendChild(hitBox);
-
-    engine = new TicTacToe(container, canvas, hitBox);
+    engine = new TicTacToe(container, background.canvas, hitBox.canvas);
 
     window.addEventListener('resize', () => engine.resize());
-    hitBox.addEventListener('pointerup', (e) => engine.update(e))
+    hitBox.canvas.addEventListener('pointerup', (e) => engine.update(e))
 });
 onUnmounted(() => {
     window.removeEventListener('resize', () => engine.resize());
-    hitBox.removeEventListener('pointerup', (e) => engine.update(e))
+    hitBox.canvas.removeEventListener('pointerup', (e) => engine.update(e))
 });
 </script>
