@@ -7,6 +7,8 @@ import {
 import { randomNumber, randomColor } from '../utils';
 import GameEngine from '../GameEngine';
 import { _textDecorationThickness } from '#tailwind-config/theme';
+import Enemy from './enemy';
+import Player from './player';
 
 export default class TicTacToe extends GameEngine {
 	lines: Array<number>;
@@ -101,7 +103,8 @@ export default class TicTacToe extends GameEngine {
 		let box = this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]] as Rect;
 
 		if (box) {
-			this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
+			let player = new Player(box.centerPoint!.x!, box.centerPoint!.y!);
+			this.shapes.push(...player.create());
 			delete this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]];
 			this.checkWon(box.centerPoint!.x!, box.centerPoint!.y!, 1);
 			this.moves--;
@@ -109,8 +112,9 @@ export default class TicTacToe extends GameEngine {
 			if (this.moves > 0) {
 				let random = randomNumber(this.moves);
 				let [key, value] = Object.entries(this.boxes)[random] as [string, Rect];
+				let enemy = new Enemy(value.centerPoint!.x!, value.centerPoint!.y!);
 
-				this.createO(value.centerPoint!.x!, value.centerPoint!.y!);
+				this.shapes.push(enemy.create());
 				delete this.boxes[key];
 				this.checkWon(value.centerPoint!.x!, value.centerPoint!.y!, -1);
 				this.moves--;
@@ -129,16 +133,6 @@ export default class TicTacToe extends GameEngine {
 		this.reverseDiagonal = 0;
 		this.initialState();
 		this.render();
-	}
-
-	createO(x: number, y: number) {
-		this.shapes.push(
-			createCircle(38, {
-				x,
-				y,
-				strokeColor: 'rgb(255,255,255)'
-			}) as Circle
-		);
 	}
 
 	createX(x: number, y: number) {
