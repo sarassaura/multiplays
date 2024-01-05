@@ -184,51 +184,53 @@ export const drawCircle = (
 	ctx.closePath();
 };
 
-export const renderShape = (
-	shape: Shape,
+export const renderShapes = (
+	shapes: Array<Shape>,
 	ctx: CanvasRenderingContext2D,
 	width: number,
 	height: number
 ) => {
-	switch (shape.type) {
-		case 'Line':
-			drawLine(
-				shape.initialPoint.x,
-				shape.initialPoint.y,
-				shape.endPoint.x,
-				shape.endPoint.y,
-				ctx,
-				width,
-				height,
-				{
-					thick: shape.options?.thick,
-					lineCap: shape.options?.lineCap,
-					color: shape.options?.color
-				}
-			);
-			break;
+	shapes.forEach((shape) => {
+		switch (shape.type) {
+			case 'Line':
+				drawLine(
+					shape.initialPoint.x,
+					shape.initialPoint.y,
+					shape.endPoint.x,
+					shape.endPoint.y,
+					ctx,
+					width,
+					height,
+					{
+						thick: shape.options?.thick,
+						lineCap: shape.options?.lineCap,
+						color: shape.options?.color
+					}
+				);
+				break;
 
-		case 'Rect':
-			drawRect(shape.width, shape.height, ctx, width, height, {
-				x: shape.centerPoint?.x,
-				y: shape.centerPoint?.y,
-				color: shape.options?.color,
-				strokeColor: shape.options?.strokeColor,
-				thick: shape.options?.thick
-			});
-			break;
+			case 'Rect':
+				drawRect(shape.width, shape.height, ctx, width, height, {
+					x: shape.centerPoint?.x,
+					y: shape.centerPoint?.y,
+					color: shape.options?.color,
+					strokeColor: shape.options?.strokeColor,
+					thick: shape.options?.thick
+				});
+				break;
 
-		case 'Circle':
-			drawCircle(shape.radius, ctx, width, height, {
-				x: shape.centerPoint?.x,
-				y: shape.centerPoint?.y,
-				color: shape.options?.color,
-				strokeColor: shape.options?.strokeColor,
-				thick: shape.options?.thick
-			});
-			break;
+			case 'Circle':
+				drawCircle(shape.radius, ctx, width, height, {
+					x: shape.centerPoint?.x,
+					y: shape.centerPoint?.y,
+					color: shape.options?.color,
+					strokeColor: shape.options?.strokeColor,
+					thick: shape.options?.thick
+				});
+				break;
 
-		default:
-			console.log('Invalid shape');
-	}
+			default:
+				console.log('Invalid shape');
+		}
+	});
 };

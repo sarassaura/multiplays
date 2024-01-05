@@ -2,7 +2,7 @@ import {
 	createCircle,
 	createLine,
 	createRect,
-	renderShape
+	renderShapes
 } from '../BasicShapes';
 import { randomNumber, randomColor } from '../utils';
 import GameEngine from '../GameEngine';
@@ -45,12 +45,8 @@ export default class TicTacToe extends GameEngine {
 		this.diagonal = 0;
 		this.reverseDiagonal = 0;
 
-		this.shapes.forEach((shape) =>
-			renderShape(shape, this.ctx, this.width, this.height)
-		);
-		Object.values(this.boxes).forEach((shape) =>
-			renderShape(shape, this.c, this.width, this.height)
-		);
+		renderShapes(this.shapes, this.ctx, this.width, this.height);
+		renderShapes(Object.values(this.boxes), this.c, this.width, this.height);
 	}
 
 	resize() {
@@ -66,12 +62,8 @@ export default class TicTacToe extends GameEngine {
 	render() {
 		this.cleanCanvas();
 
-		this.shapes.forEach((shape) =>
-			renderShape(shape, this.ctx, this.width, this.height)
-		);
-		Object.values(this.boxes).forEach((shape) =>
-			renderShape(shape, this.c, this.width, this.height)
-		);
+		renderShapes(this.shapes, this.ctx, this.width, this.height);
+		renderShapes(Object.values(this.boxes), this.c, this.width, this.height);
 	}
 
 	initialState() {
@@ -113,8 +105,9 @@ export default class TicTacToe extends GameEngine {
 				let random = randomNumber(this.moves);
 				let [key, value] = Object.entries(this.boxes)[random] as [string, Rect];
 				let enemy = new Enemy(value.centerPoint!.x!, value.centerPoint!.y!);
+				let shapes = enemy.create();
 
-				this.shapes.push(enemy.create());
+				this.shapes.push(shapes);
 				delete this.boxes[key];
 				this.checkWon(value.centerPoint!.x!, value.centerPoint!.y!, -1);
 				this.moves--;
