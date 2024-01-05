@@ -15,7 +15,7 @@ onMounted(() => {
     hitBox = new Layer(container);
     hitBox.invisible();
 
-    engine = new TicTacToe(container, background.canvas, hitBox.canvas);
+    engine = new TicTacToe(container, background, hitBox);
 
     window.addEventListener('resize', () => engine.resize());
     hitBox.canvas.addEventListener('pointerup', (e) => engine.update(e))

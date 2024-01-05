@@ -16,7 +16,7 @@ onMounted(() => {
     hitBox = new Layer(container);
     hitBox.invisible();
 
-    engine = new NoGame(container, background.canvas, hitBox.canvas);
+    engine = new NoGame(container, background, hitBox);
 
     window.addEventListener('resize', () => engine.resize());
     hitBox.canvas.addEventListener('pointerup', (e) => engine.update(e))

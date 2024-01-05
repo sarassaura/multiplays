@@ -8,14 +8,17 @@ export default class GameEngine {
 	height: number;
 	constructor(
 		container: HTMLDivElement,
-		canvas: HTMLCanvasElement,
-		hitBox: HTMLCanvasElement
+		canvas: typeof Layer.prototype,
+		hitBox: typeof Layer.prototype
 	) {
 		this.container = container;
-		this.canvas = canvas;
-		this.hitBox = hitBox;
-		this.ctx = this.canvas.getContext('2d')!;
-		this.c = this.hitBox.getContext('2d')!;
+
+		this.canvas = canvas.canvas;
+		this.hitBox = hitBox.canvas;
+
+		this.ctx = canvas.c;
+		this.c = hitBox.c;
+
 		this.width = this.container.clientWidth;
 		this.height = this.container.clientHeight;
 	}

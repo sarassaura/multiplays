@@ -5,8 +5,8 @@ export default class NoGame extends GameEngine {
 	shapes: Array<Shape>;
 	constructor(
 		container: HTMLDivElement,
-		canvas: HTMLCanvasElement,
-		hitBox: HTMLCanvasElement
+		canvas: typeof Layer.prototype,
+		hitBox: typeof Layer.prototype
 	) {
 		super(container, canvas, hitBox);
 		this.shapes = [];
