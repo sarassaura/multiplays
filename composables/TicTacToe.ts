@@ -3,6 +3,10 @@ import GameEngine from './GameEngine';
 
 export default class TicTacToe extends GameEngine {
 	tiles;
+	lines: Array<number>;
+	columns: Array<number>;
+	diagonal: number;
+	reverseDiagonal: number;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
@@ -12,6 +16,10 @@ export default class TicTacToe extends GameEngine {
 		this.initialState();
 		this.resize();
 		this.tiles = {};
+		this.lines = [0, 0, 0];
+		this.columns = [0, 0, 0];
+		this.diagonal = 0;
+		this.reverseDiagonal = 0;
 	}
 
 	initialState() {
@@ -63,28 +71,28 @@ export default class TicTacToe extends GameEngine {
 		if (box) {
 			this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
 			delete this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]];
-			length--;
+			this.checkXwon(box.centerPoint!.x!, box.centerPoint!.y!);
 
-			if (length > 0) {
-				let random = this.random(length);
-
+			if (length >= 2) {
+				let random = this.random(length - 1);
 				let randomBox = Object.values(this.boxes)[random] as Rect;
 
 				this.createO(randomBox.centerPoint!.x!, randomBox.centerPoint!.y!);
 				delete this.boxes[Object.keys(this.boxes)[random]];
+				this.checkOwon(randomBox.centerPoint!.x!, randomBox.centerPoint!.y!);
 			}
 
 			this.render();
-		} else {
-			if (length == 0) {
-				this.reset();
-			}
 		}
 	}
 
 	reset() {
 		this.shapes = [];
 		this.boxes = {};
+		this.lines = [0, 0, 0];
+		this.columns = [0, 0, 0];
+		this.diagonal = 0;
+		this.reverseDiagonal = 0;
 		this.initialState();
 		this.render();
 	}
@@ -129,5 +137,103 @@ export default class TicTacToe extends GameEngine {
 			return this.randomColor();
 		}
 		return color;
+	}
+
+	checkXwon(x: number, y: number) {
+		this.lines[y / 100 + 1]++;
+		this.columns[x / 100 + 1]++;
+
+		if (Math.abs(x) == Math.abs(y)) {
+			if (x == y) {
+				this.diagonal++;
+			}
+			if (x + y == 0) {
+				this.reverseDiagonal++;
+			}
+		}
+
+		switch (3) {
+			case this.lines[y / 100 + 1]:
+				this.shapes.push(
+					createLine(-142, y, 142, y, {
+						color: 'rgb(0,255,0)',
+						lineCap: 'round'
+					}) as Line
+				);
+				break;
+			case this.columns[x / 100 + 1]:
+				this.shapes.push(
+					createLine(x, -142, x, 142, {
+						color: 'rgb(0,255,0)',
+						lineCap: 'round'
+					}) as Line
+				);
+				break;
+			case this.diagonal:
+				this.shapes.push(
+					createLine(-100, -100, 100, 100, {
+						color: 'rgb(0,255,0)',
+						lineCap: 'round'
+					}) as Line
+				);
+				break;
+			case this.reverseDiagonal:
+				this.shapes.push(
+					createLine(100, -100, -100, 100, {
+						color: 'rgb(0,255,0)',
+						lineCap: 'round'
+					}) as Line
+				);
+				break;
+		}
+	}
+
+	checkOwon(x: number, y: number) {
+		this.lines[y / 100 + 1]--;
+		this.columns[x / 100 + 1]--;
+
+		if (Math.abs(x) == Math.abs(y)) {
+			if (x == y) {
+				this.diagonal--;
+			}
+			if (x + y == 0) {
+				this.reverseDiagonal--;
+			}
+		}
+
+		switch (-3) {
+			case this.lines[y / 100 + 1]:
+				this.shapes.push(
+					createLine(-142, y, 142, y, {
+						color: 'rgb(0,255,0)',
+						lineCap: 'round'
+					}) as Line
+				);
+				break;
+			case this.columns[x / 100 + 1]:
+				this.shapes.push(
+					createLine(x, -142, x, 142, {
+						color: 'rgb(0,255,0)',
+						lineCap: 'round'
+					}) as Line
+				);
+				break;
+			case this.diagonal:
+				this.shapes.push(
+					createLine(-100, -100, 100, 100, {
+						color: 'rgb(0,255,0)',
+						lineCap: 'round'
+					}) as Line
+				);
+				break;
+			case this.reverseDiagonal:
+				this.shapes.push(
+					createLine(100, -100, -100, 100, {
+						color: 'rgb(0,255,0)',
+						lineCap: 'round'
+					}) as Line
+				);
+				break;
+		}
 	}
 }
