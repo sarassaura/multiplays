@@ -6,6 +6,7 @@ import {
 } from '../BasicShapes';
 import { randomNumber, randomColor } from '../utils';
 import GameEngine from '../GameEngine';
+import { _textDecorationThickness } from '#tailwind-config/theme';
 
 export default class TicTacToe extends GameEngine {
 	lines: Array<number>;
@@ -15,6 +16,7 @@ export default class TicTacToe extends GameEngine {
 	shapes: Array<Shape>;
 	boxes: Record<string, Shape>;
 	board: Array<[number, number, number, number]>;
+	moves: number;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
@@ -33,6 +35,8 @@ export default class TicTacToe extends GameEngine {
 
 		this.initialState();
 		this.resizeCanvas();
+
+		this.moves = 9;
 
 		this.lines = [0, 0, 0];
 		this.columns = [0, 0, 0];
@@ -95,21 +99,21 @@ export default class TicTacToe extends GameEngine {
 		let y = e.clientY - this.container.offsetTop;
 		let rgb = this.c.getImageData(x, y, 1, 1).data;
 		let box = this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]] as Rect;
-		let keys = Object.keys(this.boxes);
-		let length = keys.length;
 
 		if (box) {
 			this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
 			delete this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]];
 			this.checkWon(box.centerPoint!.x!, box.centerPoint!.y!, 1);
+			this.moves--;
 
-			if (length >= 2) {
-				let random = randomNumber(length - 1);
+			if (this.moves > 0) {
+				let random = randomNumber(this.moves);
 				let [key, value] = Object.entries(this.boxes)[random] as [string, Rect];
 
 				this.createO(value.centerPoint!.x!, value.centerPoint!.y!);
 				delete this.boxes[key];
 				this.checkWon(value.centerPoint!.x!, value.centerPoint!.y!, -1);
+				this.moves--;
 			}
 
 			this.render();
@@ -165,7 +169,7 @@ export default class TicTacToe extends GameEngine {
 			}
 		}
 
-		this.createSlash(x, y, 3 * point);
+		this.moves <= 5 && this.createSlash(x, y, 3 * point);
 	}
 
 	createSlash(x: number, y: number, unbroken: number) {
