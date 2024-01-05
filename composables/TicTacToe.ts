@@ -181,38 +181,7 @@ export default class TicTacToe extends GameEngine {
 			}
 		}
 
-		if (this.lines[y / 100 + 1] == 3) {
-			this.shapes.push(
-				createLine(-142, y, 142, y, {
-					color: 'rgb(0,255,0)',
-					lineCap: 'round'
-				}) as Line
-			);
-		}
-		if (this.columns[x / 100 + 1] == 3) {
-			this.shapes.push(
-				createLine(x, -142, x, 142, {
-					color: 'rgb(0,255,0)',
-					lineCap: 'round'
-				}) as Line
-			);
-		}
-		if (this.diagonal == 3) {
-			this.shapes.push(
-				createLine(-100, -100, 100, 100, {
-					color: 'rgb(0,255,0)',
-					lineCap: 'round'
-				}) as Line
-			);
-		}
-		if (this.reverseDiagonal == 3) {
-			this.shapes.push(
-				createLine(100, -100, -100, 100, {
-					color: 'rgb(0,255,0)',
-					lineCap: 'round'
-				}) as Line
-			);
-		}
+		this.createSlash(x, y, 3);
 	}
 
 	checkOwon(x: number, y: number) {
@@ -228,7 +197,11 @@ export default class TicTacToe extends GameEngine {
 			}
 		}
 
-		if (this.lines[y / 100 + 1] == -3) {
+		this.createSlash(x, y, -3);
+	}
+
+	createSlash(x: number, y: number, unbroken: number) {
+		if (this.lines[y / 100 + 1] == unbroken) {
 			this.shapes.push(
 				createLine(-142, y, 142, y, {
 					color: 'rgb(0,255,0)',
@@ -236,7 +209,7 @@ export default class TicTacToe extends GameEngine {
 				}) as Line
 			);
 		}
-		if (this.columns[x / 100 + 1] == -3) {
+		if (this.columns[x / 100 + 1] == unbroken) {
 			this.shapes.push(
 				createLine(x, -142, x, 142, {
 					color: 'rgb(0,255,0)',
@@ -244,7 +217,7 @@ export default class TicTacToe extends GameEngine {
 				}) as Line
 			);
 		}
-		if (this.diagonal == -3) {
+		if (this.diagonal == unbroken) {
 			this.shapes.push(
 				createLine(-100, -100, 100, 100, {
 					color: 'rgb(0,255,0)',
@@ -252,7 +225,7 @@ export default class TicTacToe extends GameEngine {
 				}) as Line
 			);
 		}
-		if (this.reverseDiagonal == -3) {
+		if (this.reverseDiagonal == unbroken) {
 			this.shapes.push(
 				createLine(100, -100, -100, 100, {
 					color: 'rgb(0,255,0)',
