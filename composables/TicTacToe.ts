@@ -152,39 +152,37 @@ export default class TicTacToe extends GameEngine {
 			}
 		}
 
-		switch (3) {
-			case this.lines[y / 100 + 1]:
-				this.shapes.push(
-					createLine(-142, y, 142, y, {
-						color: 'rgb(0,255,0)',
-						lineCap: 'round'
-					}) as Line
-				);
-				break;
-			case this.columns[x / 100 + 1]:
-				this.shapes.push(
-					createLine(x, -142, x, 142, {
-						color: 'rgb(0,255,0)',
-						lineCap: 'round'
-					}) as Line
-				);
-				break;
-			case this.diagonal:
-				this.shapes.push(
-					createLine(-100, -100, 100, 100, {
-						color: 'rgb(0,255,0)',
-						lineCap: 'round'
-					}) as Line
-				);
-				break;
-			case this.reverseDiagonal:
-				this.shapes.push(
-					createLine(100, -100, -100, 100, {
-						color: 'rgb(0,255,0)',
-						lineCap: 'round'
-					}) as Line
-				);
-				break;
+		if (this.lines[y / 100 + 1] == 3) {
+			this.shapes.push(
+				createLine(-142, y, 142, y, {
+					color: 'rgb(0,255,0)',
+					lineCap: 'round'
+				}) as Line
+			);
+		}
+		if (this.columns[x / 100 + 1] == 3) {
+			this.shapes.push(
+				createLine(x, -142, x, 142, {
+					color: 'rgb(0,255,0)',
+					lineCap: 'round'
+				}) as Line
+			);
+		}
+		if (this.diagonal == 3) {
+			this.shapes.push(
+				createLine(-100, -100, 100, 100, {
+					color: 'rgb(0,255,0)',
+					lineCap: 'round'
+				}) as Line
+			);
+		}
+		if (this.reverseDiagonal == 3) {
+			this.shapes.push(
+				createLine(100, -100, -100, 100, {
+					color: 'rgb(0,255,0)',
+					lineCap: 'round'
+				}) as Line
+			);
 		}
 	}
 
@@ -201,39 +199,37 @@ export default class TicTacToe extends GameEngine {
 			}
 		}
 
-		switch (-3) {
-			case this.lines[y / 100 + 1]:
-				this.shapes.push(
-					createLine(-142, y, 142, y, {
-						color: 'rgb(0,255,0)',
-						lineCap: 'round'
-					}) as Line
-				);
-				break;
-			case this.columns[x / 100 + 1]:
-				this.shapes.push(
-					createLine(x, -142, x, 142, {
-						color: 'rgb(0,255,0)',
-						lineCap: 'round'
-					}) as Line
-				);
-				break;
-			case this.diagonal:
-				this.shapes.push(
-					createLine(-100, -100, 100, 100, {
-						color: 'rgb(0,255,0)',
-						lineCap: 'round'
-					}) as Line
-				);
-				break;
-			case this.reverseDiagonal:
-				this.shapes.push(
-					createLine(100, -100, -100, 100, {
-						color: 'rgb(0,255,0)',
-						lineCap: 'round'
-					}) as Line
-				);
-				break;
+		if (this.lines[y / 100 + 1] == -3) {
+			this.shapes.push(
+				createLine(-142, y, 142, y, {
+					color: 'rgb(0,255,0)',
+					lineCap: 'round'
+				}) as Line
+			);
+		}
+		if (this.columns[x / 100 + 1] == -3) {
+			this.shapes.push(
+				createLine(x, -142, x, 142, {
+					color: 'rgb(0,255,0)',
+					lineCap: 'round'
+				}) as Line
+			);
+		}
+		if (this.diagonal == -3) {
+			this.shapes.push(
+				createLine(-100, -100, 100, 100, {
+					color: 'rgb(0,255,0)',
+					lineCap: 'round'
+				}) as Line
+			);
+		}
+		if (this.reverseDiagonal == -3) {
+			this.shapes.push(
+				createLine(100, -100, -100, 100, {
+					color: 'rgb(0,255,0)',
+					lineCap: 'round'
+				}) as Line
+			);
 		}
 	}
 }
