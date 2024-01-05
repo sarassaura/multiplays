@@ -4,10 +4,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Layer } from '#imports';
-
 let container: HTMLDivElement;
-let hitBox: Layer;
+let hitBox: typeof Layer.prototype;
 let engine: typeof TicTacToe.prototype;
 
 onMounted(() => {
