@@ -20,10 +20,10 @@ onMounted(() => {
     engine = new TicTacToe(container, canvas, hitBox);
 
     window.addEventListener('resize', () => engine.resize());
-    hitBox.addEventListener('pointerdown', (e) => engine.update(e))
+    hitBox.addEventListener('pointerup', (e) => engine.update(e))
 });
 onUnmounted(() => {
     window.removeEventListener('resize', () => engine.resize());
-    hitBox.removeEventListener('pointerdown', (e) => engine.update(e))
+    hitBox.removeEventListener('pointerup', (e) => engine.update(e))
 });
 </script>

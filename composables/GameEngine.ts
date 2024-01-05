@@ -1,5 +1,3 @@
-import { renderShape } from './BasicShapes';
-
 export default class GameEngine {
 	container: HTMLDivElement;
 	canvas: HTMLCanvasElement;
@@ -8,8 +6,6 @@ export default class GameEngine {
 	c: CanvasRenderingContext2D;
 	width: number;
 	height: number;
-	shapes: Array<Shape>;
-	boxes: Record<string, Shape>;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
@@ -22,28 +18,14 @@ export default class GameEngine {
 		this.c = this.hitBox.getContext('2d')!;
 		this.width = this.container.clientWidth;
 		this.height = this.container.clientHeight;
-		this.shapes = [];
-		this.boxes = {};
 	}
 
-	resize() {
+	resizeCanvas() {
 		this.width = this.container.clientWidth;
 		this.height = this.container.clientHeight;
 		this.canvas.height = this.height;
 		this.canvas.width = this.width;
 		this.hitBox.height = this.height;
 		this.hitBox.width = this.width;
-		this.render();
-	}
-
-	render() {
-		this.ctx.clearRect(0, 0, this.width, this.height);
-		this.c.clearRect(0, 0, this.width, this.height);
-		this.shapes.forEach((shape) =>
-			renderShape(shape, this.ctx, this.width, this.height)
-		);
-		Object.values(this.boxes).forEach((shape) =>
-			renderShape(shape, this.c, this.width, this.height)
-		);
 	}
 }

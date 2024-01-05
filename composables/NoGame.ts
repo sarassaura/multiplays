@@ -2,14 +2,21 @@ import { createRect } from './BasicShapes';
 import GameEngine from './GameEngine';
 
 export default class NoGame extends GameEngine {
+	shapes: Array<Shape>;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
 		hitBox: HTMLCanvasElement
 	) {
 		super(container, canvas, hitBox);
+		this.shapes = [];
 		this.initialState();
 		this.resize();
+	}
+
+	resize() {
+		this.resizeCanvas();
+		this.render();
 	}
 
 	initialState() {
@@ -32,6 +39,19 @@ export default class NoGame extends GameEngine {
 				y: -50,
 				color: 'rgba(0,0,255, 0.4)'
 			}) as Rect
+		);
+	}
+
+	cleanCanvas() {
+		this.ctx.clearRect(0, 0, this.width, this.height);
+		this.c.clearRect(0, 0, this.width, this.height);
+	}
+
+	render() {
+		this.cleanCanvas();
+
+		this.shapes.forEach((shape) =>
+			renderShape(shape, this.ctx, this.width, this.height)
 		);
 	}
 

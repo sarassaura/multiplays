@@ -1,25 +1,60 @@
-import { createCircle, createLine, createRect } from './BasicShapes';
+import {
+	createCircle,
+	createLine,
+	createRect,
+	renderShape
+} from './BasicShapes';
 import GameEngine from './GameEngine';
 
 export default class TicTacToe extends GameEngine {
-	tiles;
 	lines: Array<number>;
 	columns: Array<number>;
 	diagonal: number;
 	reverseDiagonal: number;
+	shapes: Array<Shape>;
+	boxes: Record<string, Shape>;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
 		hitBox: HTMLCanvasElement
 	) {
 		super(container, canvas, hitBox);
+		this.shapes = [];
+		this.boxes = {};
 		this.initialState();
-		this.resize();
-		this.tiles = {};
+		this.resizeCanvas();
 		this.lines = [0, 0, 0];
 		this.columns = [0, 0, 0];
 		this.diagonal = 0;
 		this.reverseDiagonal = 0;
+
+		this.shapes.forEach((shape) =>
+			renderShape(shape, this.ctx, this.width, this.height)
+		);
+		Object.values(this.boxes).forEach((shape) =>
+			renderShape(shape, this.c, this.width, this.height)
+		);
+	}
+
+	resize() {
+		this.resizeCanvas();
+		this.render();
+	}
+
+	cleanCanvas() {
+		this.ctx.clearRect(0, 0, this.width, this.height);
+		this.c.clearRect(0, 0, this.width, this.height);
+	}
+
+	render() {
+		this.cleanCanvas();
+
+		this.shapes.forEach((shape) =>
+			renderShape(shape, this.ctx, this.width, this.height)
+		);
+		Object.values(this.boxes).forEach((shape) =>
+			renderShape(shape, this.c, this.width, this.height)
+		);
 	}
 
 	initialState() {
