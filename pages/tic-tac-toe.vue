@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-import Layer from '~/composables/TicTacToe/layer';
+import { Layer } from '#imports';
 
 let container: HTMLDivElement;
 let hitBox: Layer;

@@ -5,25 +5,26 @@
 </template>
 
 <script lang="ts" setup>
+import { Layer } from '#imports';
+
 let container: HTMLDivElement;
-let canvas: HTMLCanvasElement;
-let hitBox: HTMLCanvasElement
+let hitBox: Layer;
 let engine: typeof NoGame.prototype;
 
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
-    canvas = container.firstElementChild as HTMLCanvasElement;
-    hitBox = document.createElement('canvas') as HTMLCanvasElement;
-    hitBox.style.position = 'absolute';
-    hitBox.style.opacity = '0.0';
-    container.appendChild(hitBox);
-    engine = new NoGame(container, canvas, hitBox);
+
+    let background = new Layer(container);
+    hitBox = new Layer(container);
+    hitBox.invisible();
+
+    engine = new NoGame(container, background.canvas, hitBox.canvas);
 
     window.addEventListener('resize', () => engine.resize());
-    hitBox.addEventListener('pointerdown', (e) => engine.update(e))
+    hitBox.canvas.addEventListener('pointerup', (e) => engine.update(e))
 })
 onUnmounted(() => {
     window.removeEventListener('resize', () => engine.resize());
-    hitBox.removeEventListener('pointerdown', (e) => engine.update(e))
+    hitBox.canvas.removeEventListener('pointerup', (e) => engine.update(e))
 })
 </script>
