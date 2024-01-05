@@ -3,8 +3,9 @@ import {
 	createLine,
 	createRect,
 	renderShape
-} from './BasicShapes';
-import GameEngine from './GameEngine';
+} from '../BasicShapes';
+import { randomNumber, randomColor } from '../utils';
+import GameEngine from '../GameEngine';
 
 export default class TicTacToe extends GameEngine {
 	lines: Array<number>;
@@ -79,7 +80,7 @@ export default class TicTacToe extends GameEngine {
 
 		for (let i = -100; i <= 100; i += 100) {
 			for (let j = -100; j <= 100; j += 100) {
-				let random = this.randomColor();
+				let random = randomColor(this.boxes);
 				this.boxes[random] = createRect(100, 100, {
 					x: i,
 					y: j,
@@ -103,7 +104,7 @@ export default class TicTacToe extends GameEngine {
 			this.checkXwon(box.centerPoint!.x!, box.centerPoint!.y!);
 
 			if (length >= 2) {
-				let random = this.random(length - 1);
+				let random = randomNumber(length - 1);
 				let randomBox = Object.values(this.boxes)[random] as Rect;
 
 				this.createO(randomBox.centerPoint!.x!, randomBox.centerPoint!.y!);
@@ -149,23 +150,6 @@ export default class TicTacToe extends GameEngine {
 				color: 'rgb(255,255,255)'
 			}) as Line
 		);
-	}
-
-	random(length: number) {
-		return Math.floor(Math.random() * length);
-	}
-
-	randomColor(): string {
-		let r = this.random(256);
-		let g = this.random(256);
-		let b = this.random(256);
-
-		let color = r + ',' + g + ',' + b;
-
-		if (this.boxes[color]) {
-			return this.randomColor();
-		}
-		return color;
 	}
 
 	checkXwon(x: number, y: number) {

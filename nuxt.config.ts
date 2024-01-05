@@ -4,5 +4,12 @@ export default defineNuxtConfig({
 	typescript: {
 		shim: false
 	},
-	devtools: { enabled: true }
+	devtools: { enabled: true },
+	imports: {
+		dirs: [
+			'composables',
+			'composables/*/index.{ts,js,mjs,mts}',
+			'composables/**'
+		]
+	}
 });

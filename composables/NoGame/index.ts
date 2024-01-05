@@ -1,5 +1,5 @@
-import { createRect } from './BasicShapes';
-import GameEngine from './GameEngine';
+import { createRect } from '../BasicShapes';
+import GameEngine from '../GameEngine';
 
 export default class NoGame extends GameEngine {
 	shapes: Array<Shape>;
