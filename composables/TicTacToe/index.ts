@@ -101,15 +101,15 @@ export default class TicTacToe extends GameEngine {
 		if (box) {
 			this.createX(box.centerPoint!.x!, box.centerPoint!.y!);
 			delete this.boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]];
-			this.checkXwon(box.centerPoint!.x!, box.centerPoint!.y!);
+			this.checkWon(box.centerPoint!.x!, box.centerPoint!.y!, 1);
 
 			if (length >= 2) {
 				let random = randomNumber(length - 1);
-				let randomBox = Object.values(this.boxes)[random] as Rect;
+				let [key, value] = Object.entries(this.boxes)[random] as [string, Rect];
 
-				this.createO(randomBox.centerPoint!.x!, randomBox.centerPoint!.y!);
-				delete this.boxes[Object.keys(this.boxes)[random]];
-				this.checkOwon(randomBox.centerPoint!.x!, randomBox.centerPoint!.y!);
+				this.createO(value.centerPoint!.x!, value.centerPoint!.y!);
+				delete this.boxes[key];
+				this.checkWon(value.centerPoint!.x!, value.centerPoint!.y!, -1);
 			}
 
 			this.render();
@@ -152,36 +152,20 @@ export default class TicTacToe extends GameEngine {
 		);
 	}
 
-	checkXwon(x: number, y: number) {
-		this.lines[y / 100 + 1]++;
-		this.columns[x / 100 + 1]++;
+	checkWon(x: number, y: number, point: number) {
+		this.lines[y / 100 + 1] += point;
+		this.columns[x / 100 + 1] += point;
 
 		if (Math.abs(x) == Math.abs(y)) {
 			if (x == y) {
-				this.diagonal++;
+				this.diagonal += point;
 			}
 			if (x + y == 0) {
-				this.reverseDiagonal++;
+				this.reverseDiagonal += point;
 			}
 		}
 
-		this.createSlash(x, y, 3);
-	}
-
-	checkOwon(x: number, y: number) {
-		this.lines[y / 100 + 1]--;
-		this.columns[x / 100 + 1]--;
-
-		if (Math.abs(x) == Math.abs(y)) {
-			if (x == y) {
-				this.diagonal--;
-			}
-			if (x + y == 0) {
-				this.reverseDiagonal--;
-			}
-		}
-
-		this.createSlash(x, y, -3);
+		this.createSlash(x, y, 3 * point);
 	}
 
 	createSlash(x: number, y: number, unbroken: number) {
