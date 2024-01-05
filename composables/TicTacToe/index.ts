@@ -135,21 +135,6 @@ export default class TicTacToe extends GameEngine {
 		this.render();
 	}
 
-	createX(x: number, y: number) {
-		this.shapes.push(
-			createLine(x - 38, y - 38, x + 38, y + 38, {
-				lineCap: 'round',
-				color: 'rgb(255,255,255)'
-			}) as Line
-		);
-		this.shapes.push(
-			createLine(x - 38, y + 38, x + 38, y - 38, {
-				lineCap: 'round',
-				color: 'rgb(255,255,255)'
-			}) as Line
-		);
-	}
-
 	checkWon(x: number, y: number, point: number) {
 		this.lines[y / 100 + 1] += point;
 		this.columns[x / 100 + 1] += point;
