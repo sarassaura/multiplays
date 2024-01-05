@@ -13,6 +13,7 @@ export default class TicTacToe extends GameEngine {
 	reverseDiagonal: number;
 	shapes: Array<Shape>;
 	boxes: Record<string, Shape>;
+	board: Array<[number, number, number, number]>;
 	constructor(
 		container: HTMLDivElement,
 		canvas: HTMLCanvasElement,
@@ -21,8 +22,17 @@ export default class TicTacToe extends GameEngine {
 		super(container, canvas, hitBox);
 		this.shapes = [];
 		this.boxes = {};
+
+		this.board = [
+			[-50, -150, -50, 150],
+			[50, -150, 50, 150],
+			[-150, -50, 150, -50],
+			[-150, 50, 150, 50]
+		];
+
 		this.initialState();
 		this.resizeCanvas();
+
 		this.lines = [0, 0, 0];
 		this.columns = [0, 0, 0];
 		this.diagonal = 0;
@@ -58,30 +68,14 @@ export default class TicTacToe extends GameEngine {
 	}
 
 	initialState() {
-		this.shapes.push(
-			createLine(-50, -150, -50, 150, {
-				lineCap: 'round',
-				color: 'rgb(255,255,255)'
-			}) as Line
-		);
-		this.shapes.push(
-			createLine(50, -150, 50, 150, {
-				lineCap: 'round',
-				color: 'rgb(255,255,255)'
-			}) as Line
-		);
-		this.shapes.push(
-			createLine(-150, -50, 150, -50, {
-				lineCap: 'round',
-				color: 'rgb(255,255,255)'
-			}) as Line
-		);
-		this.shapes.push(
-			createLine(-150, 50, 150, 50, {
-				lineCap: 'round',
-				color: 'rgb(255,255,255)'
-			}) as Line
-		);
+		this.board.forEach((line) => {
+			this.shapes.push(
+				createLine(...line, {
+					lineCap: 'round',
+					color: 'rgb(255,255,255)'
+				}) as Line
+			);
+		});
 
 		for (let i = -100; i <= 100; i += 100) {
 			for (let j = -100; j <= 100; j += 100) {
