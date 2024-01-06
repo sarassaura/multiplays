@@ -174,7 +174,7 @@ export default class TicTacToe extends GameEngine {
 
 	createSlash(x: number, y: number, unbroken: number) {
 		if (this.lines[y / 100 + 1] == unbroken) {
-			(this.scene[0].storage as Shape[]).push(
+			this.scene[0].create(
 				createLine(-142, y, 142, y, {
 					color: 'rgb(0,255,0)',
 					lineCap: 'round'
@@ -182,7 +182,7 @@ export default class TicTacToe extends GameEngine {
 			);
 		}
 		if (this.columns[x / 100 + 1] == unbroken) {
-			(this.scene[0].storage as Shape[]).push(
+			this.scene[0].create(
 				createLine(x, -142, x, 142, {
 					color: 'rgb(0,255,0)',
 					lineCap: 'round'
@@ -190,7 +190,7 @@ export default class TicTacToe extends GameEngine {
 			);
 		}
 		if (this.diagonal == unbroken) {
-			(this.scene[0].storage as Shape[]).push(
+			this.scene[0].create(
 				createLine(-100, -100, 100, 100, {
 					color: 'rgb(0,255,0)',
 					lineCap: 'round'
@@ -198,7 +198,7 @@ export default class TicTacToe extends GameEngine {
 			);
 		}
 		if (this.reverseDiagonal == unbroken) {
-			(this.scene[0].storage as Shape[]).push(
+			this.scene[0].create(
 				createLine(100, -100, -100, 100, {
 					color: 'rgb(0,255,0)',
 					lineCap: 'round'

@@ -34,4 +34,10 @@ export default class Layer {
 			renderShapes(Object.values(this.storage), this.c, width, height);
 		}
 	}
+
+	create(shape: Shape) {
+		if (this.storage.constructor == Array<Shape>) {
+			this.storage.push(shape);
+		}
+	}
 }
