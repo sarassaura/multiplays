@@ -6,7 +6,6 @@ import {
 } from '../BasicShapes';
 import { randomNumber, randomColor } from '../utils';
 import GameEngine from '../GameEngine';
-import { _textDecorationThickness } from '#tailwind-config/theme';
 import Enemy from './enemy';
 import Player from './player';
 
@@ -124,6 +123,7 @@ export default class TicTacToe extends GameEngine {
 		this.columns = [0, 0, 0];
 		this.diagonal = 0;
 		this.reverseDiagonal = 0;
+		this.moves = 9;
 		this.initialState();
 		this.render();
 	}
