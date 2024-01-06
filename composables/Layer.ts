@@ -25,4 +25,13 @@ export default class Layer {
 		this.canvas.height = height;
 		this.canvas.width = width;
 	}
+
+	render(width: number, height: number) {
+		if (this.storage.constructor == Array<Shape>) {
+			renderShapes(this.storage, this.c, width, height);
+		}
+		if (typeof this.storage === 'object') {
+			renderShapes(Object.values(this.storage), this.c, width, height);
+		}
+	}
 }

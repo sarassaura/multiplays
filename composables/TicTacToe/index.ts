@@ -54,18 +54,8 @@ export default class TicTacToe extends GameEngine {
 		this.diagonal = 0;
 		this.reverseDiagonal = 0;
 
-		renderShapes(
-			this.scene[0].storage as Shape[],
-			this.scene[0].c,
-			this.width,
-			this.height
-		);
-		renderShapes(
-			Object.values(this.hitBox[0].storage as Record<string, Shape>),
-			this.hitBox[0].c,
-			this.width,
-			this.height
-		);
+		this.scene[0].render(this.width, this.height);
+		this.hitBox[0].render(this.width, this.height);
 	}
 
 	resize() {
@@ -87,18 +77,8 @@ export default class TicTacToe extends GameEngine {
 	render() {
 		this.cleanCanvas();
 
-		renderShapes(
-			this.scene[0].storage as Shape[],
-			this.scene[0].c,
-			this.width,
-			this.height
-		);
-		renderShapes(
-			Object.values(this.hitBox[0].storage as Record<string, Shape>),
-			this.hitBox[0].c,
-			this.width,
-			this.height
-		);
+		this.scene[0].render(this.width, this.height);
+		this.hitBox[0].render(this.width, this.height);
 	}
 
 	initialState() {
