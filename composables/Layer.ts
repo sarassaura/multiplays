@@ -1,16 +1,15 @@
 export default class Layer {
 	canvas: HTMLCanvasElement;
 	c: CanvasRenderingContext2D;
-	storage: Array<Shape> | Record<string, Shape>;
-	constructor(
-		container: HTMLDivElement,
-		storage: Array<Shape> | Record<string, Shape>
-	) {
+	shapes: Array<Shape>;
+	boxes: Record<string, Shape>;
+	constructor(container: HTMLDivElement) {
 		this.canvas = document.createElement('canvas') as HTMLCanvasElement;
 		this.canvas.style.position = 'absolute';
 		this.c = this.canvas.getContext('2d')!;
 		container.appendChild(this.canvas);
-		this.storage = storage;
+		this.shapes = [];
+		this.boxes = {};
 	}
 
 	invisible() {
@@ -26,18 +25,26 @@ export default class Layer {
 		this.canvas.width = width;
 	}
 
-	render(width: number, height: number) {
-		if (this.storage.constructor == Array<Shape>) {
-			renderShapes(this.storage, this.c, width, height);
-		}
-		if (typeof this.storage === 'object') {
-			renderShapes(Object.values(this.storage), this.c, width, height);
-		}
+	renderShapes(width: number, height: number) {
+		renderShapes(this.shapes, this.c, width, height);
 	}
 
-	create(shape: Shape) {
-		if (this.storage.constructor == Array<Shape>) {
-			this.storage.push(shape);
-		}
+	renderBoxes(width: number, height: number) {
+		renderShapes(Object.values(this.boxes), this.c, width, height);
+	}
+
+	createShapes(shape: Shape) {
+		this.shapes.push(shape);
+	}
+
+	createBoxes(shape: Shape) {
+		let random = randomColor(this.boxes);
+		shape.options!.color = `rgb(${random})`;
+		this.boxes[random] = shape;
+	}
+
+	reset() {
+		this.shapes = [];
+		this.boxes = {};
 	}
 }

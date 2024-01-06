@@ -28,11 +28,11 @@ export default class TicTacToe extends GameEngine {
 		this.hitBox = [];
 
 		for (let i = 0; i < background; i++) {
-			this.scene.push(new Layer(container, []));
+			this.scene.push(new Layer(container));
 		}
 
 		for (let i = 0; i < clickable; i++) {
-			let layer = new Layer(container, {});
+			let layer = new Layer(container);
 			layer.invisible();
 			this.hitBox.push(layer);
 		}
@@ -54,8 +54,8 @@ export default class TicTacToe extends GameEngine {
 		this.diagonal = 0;
 		this.reverseDiagonal = 0;
 
-		this.scene[0].render(this.width, this.height);
-		this.hitBox[0].render(this.width, this.height);
+		this.scene[0].renderShapes(this.width, this.height);
+		this.hitBox[0].renderBoxes(this.width, this.height);
 	}
 
 	resize() {
@@ -77,13 +77,13 @@ export default class TicTacToe extends GameEngine {
 	render() {
 		this.cleanCanvas();
 
-		this.scene[0].render(this.width, this.height);
-		this.hitBox[0].render(this.width, this.height);
+		this.scene[0].renderShapes(this.width, this.height);
+		this.hitBox[0].renderBoxes(this.width, this.height);
 	}
 
 	initialState() {
 		this.board.forEach((line) => {
-			this.scene[0].create(
+			this.scene[0].createShapes(
 				createLine(...line, {
 					lineCap: 'round',
 					color: 'rgb(255,255,255)'
@@ -93,18 +93,12 @@ export default class TicTacToe extends GameEngine {
 
 		for (let i = -100; i <= 100; i += 100) {
 			for (let j = -100; j <= 100; j += 100) {
-				let random = randomColor(
-					this.hitBox[0].storage as Record<string, Shape>
-				);
-				(this.hitBox[0].storage as Record<string, Shape>)[random] = createRect(
-					100,
-					100,
-					{
+				this.hitBox[0].createBoxes(
+					createRect(100, 100, {
 						x: i,
-						y: j,
-						color: `rgb(${random})`
-					}
-				) as Rect;
+						y: j
+					}) as Rect
+				);
 			}
 		}
 	}
@@ -113,29 +107,28 @@ export default class TicTacToe extends GameEngine {
 		let x = e.clientX - this.container.offsetLeft;
 		let y = e.clientY - this.container.offsetTop;
 		let rgb = this.hitBox[0].c.getImageData(x, y, 1, 1).data;
-		let box = (this.hitBox[0].storage as Record<string, Shape>)[
+		let box = this.hitBox[0].boxes[
 			rgb[0] + ',' + rgb[1] + ',' + rgb[2]
 		] as Rect;
 
 		if (box) {
 			let player = new Player(box.centerPoint!.x!, box.centerPoint!.y!);
-			(this.scene[0].storage as Shape[]).push(...player.create());
-			delete (this.hitBox[0].storage as Record<string, Shape>)[
-				rgb[0] + ',' + rgb[1] + ',' + rgb[2]
-			];
+			this.scene[0].shapes.push(...player.create());
+			delete this.hitBox[0].boxes[rgb[0] + ',' + rgb[1] + ',' + rgb[2]];
 			this.checkWon(box.centerPoint!.x!, box.centerPoint!.y!, 1);
 			this.moves--;
 
 			if (this.moves > 0) {
 				let random = randomNumber(this.moves);
-				let [key, value] = Object.entries(
-					this.hitBox[0].storage as Record<string, Shape>
-				)[random] as [string, Rect];
+				let [key, value] = Object.entries(this.hitBox[0].boxes)[random] as [
+					string,
+					Rect
+				];
 				let enemy = new Enemy(value.centerPoint!.x!, value.centerPoint!.y!);
 				let shapes = enemy.create();
 
-				(this.scene[0].storage as Shape[]).push(shapes);
-				delete (this.hitBox[0].storage as Record<string, Shape>)[key];
+				this.scene[0].shapes.push(shapes);
+				delete (this.hitBox[0].boxes as Record<string, Shape>)[key];
 				this.checkWon(value.centerPoint!.x!, value.centerPoint!.y!, -1);
 				this.moves--;
 			}
@@ -145,8 +138,8 @@ export default class TicTacToe extends GameEngine {
 	}
 
 	reset() {
-		(this.scene[0].storage as Shape[]) = [];
-		(this.hitBox[0].storage as Record<string, Shape>) = {};
+		this.scene[0].reset();
+		this.hitBox[0].reset();
 		this.lines = [0, 0, 0];
 		this.columns = [0, 0, 0];
 		this.diagonal = 0;
@@ -174,7 +167,7 @@ export default class TicTacToe extends GameEngine {
 
 	createSlash(x: number, y: number, unbroken: number) {
 		if (this.lines[y / 100 + 1] == unbroken) {
-			this.scene[0].create(
+			this.scene[0].createShapes(
 				createLine(-142, y, 142, y, {
 					color: 'rgb(0,255,0)',
 					lineCap: 'round'
@@ -182,7 +175,7 @@ export default class TicTacToe extends GameEngine {
 			);
 		}
 		if (this.columns[x / 100 + 1] == unbroken) {
-			this.scene[0].create(
+			this.scene[0].createShapes(
 				createLine(x, -142, x, 142, {
 					color: 'rgb(0,255,0)',
 					lineCap: 'round'
@@ -190,7 +183,7 @@ export default class TicTacToe extends GameEngine {
 			);
 		}
 		if (this.diagonal == unbroken) {
-			this.scene[0].create(
+			this.scene[0].createShapes(
 				createLine(-100, -100, 100, 100, {
 					color: 'rgb(0,255,0)',
 					lineCap: 'round'
@@ -198,7 +191,7 @@ export default class TicTacToe extends GameEngine {
 			);
 		}
 		if (this.reverseDiagonal == unbroken) {
-			this.scene[0].create(
+			this.scene[0].createShapes(
 				createLine(100, -100, -100, 100, {
 					color: 'rgb(0,255,0)',
 					lineCap: 'round'

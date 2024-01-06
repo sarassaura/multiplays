@@ -14,11 +14,11 @@ export default class NoGame extends GameEngine {
 		this.hitBox = [];
 
 		for (let i = 0; i < background; i++) {
-			this.scene.push(new Layer(container, []));
+			this.scene.push(new Layer(container));
 		}
 
 		for (let i = 0; i < clickable; i++) {
-			let layer = new Layer(container, {});
+			let layer = new Layer(container);
 			layer.invisible();
 			this.hitBox.push(layer);
 		}
@@ -27,7 +27,7 @@ export default class NoGame extends GameEngine {
 		this.resizeCanvas();
 
 		renderShapes(
-			this.scene[0].storage as Shape[],
+			this.scene[0].shapes,
 			this.scene[0].c,
 			this.width,
 			this.height
@@ -46,20 +46,20 @@ export default class NoGame extends GameEngine {
 	}
 
 	initialState() {
-		(this.scene[0].storage as Shape[]).push(
+		this.scene[0].shapes.push(
 			createRect(200, 200, {
 				color: 'rgba(255,0,0,0.4)',
 				strokeColor: 'rgb(0,255,255)'
 			}) as Rect
 		);
-		(this.scene[0].storage as Shape[]).push(
+		this.scene[0].shapes.push(
 			createRect(200, 200, {
 				x: 50,
 				y: 50,
 				color: 'rgba(0,255,0,0.4)'
 			}) as Rect
 		);
-		(this.scene[0].storage as Shape[]).push(
+		this.scene[0].shapes.push(
 			createRect(200, 200, {
 				x: -50,
 				y: -50,
@@ -76,7 +76,7 @@ export default class NoGame extends GameEngine {
 	render() {
 		this.cleanCanvas();
 		renderShapes(
-			this.scene[0].storage as Shape[],
+			this.scene[0].shapes,
 			this.scene[0].c,
 			this.width,
 			this.height
@@ -84,7 +84,7 @@ export default class NoGame extends GameEngine {
 	}
 
 	update(e: PointerEvent) {
-		(this.scene[0].storage as Shape[])?.forEach((shape) => {
+		this.scene[0].shapes?.forEach((shape) => {
 			if (shape.type == 'Rect') {
 				if (shape.options?.strokeColor) {
 					shape.options.strokeColor = undefined;
