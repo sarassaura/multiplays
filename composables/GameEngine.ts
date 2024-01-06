@@ -24,6 +24,7 @@ export default class GameEngine {
 		for (let i = 0; i < clickable; i++) {
 			let layer = new Layer(container);
 			layer.invisible();
+			// layer.canvas.style.border = '1px solid red';
 			this.hitBox.push(layer);
 		}
 	}

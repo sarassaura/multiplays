@@ -1,6 +1,5 @@
 <template>
-    <div class="flex flex-col w-full h-full align-center justify-center relative" id="container">
-        <canvas id="no-game" class="absolute"></canvas>
+    <div class="flex flex-col w-full h-full relative" id="container">
     </div>
 </template>
 
