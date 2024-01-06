@@ -83,7 +83,7 @@ export default class TicTacToe extends GameEngine {
 
 	initialState() {
 		this.board.forEach((line) => {
-			(this.scene[0].storage as Shape[]).push(
+			this.scene[0].create(
 				createLine(...line, {
 					lineCap: 'round',
 					color: 'rgb(255,255,255)'
