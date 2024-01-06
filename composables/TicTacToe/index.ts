@@ -73,7 +73,7 @@ export default class TicTacToe extends GameEngine {
 		}
 	}
 
-	update(e: PointerEvent) {
+	async update(e: PointerEvent) {
 		let x = e.clientX - this.container.offsetLeft;
 		let y = e.clientY - this.container.offsetTop;
 		let rgb = this.hitBox[0].c.getImageData(x, y, 1, 1).data;
@@ -81,7 +81,7 @@ export default class TicTacToe extends GameEngine {
 			rgb[0] + ',' + rgb[1] + ',' + rgb[2]
 		] as Rect;
 
-		if (box) {
+		if (box && this.moves % 2 == 1) {
 			let player = new Player(box.centerPoint!.x!, box.centerPoint!.y!);
 			this.scene[1].shapes.push(...player.create());
 			renderShapes(player.create(), this.scene[1].c, this.width, this.height);
@@ -98,9 +98,12 @@ export default class TicTacToe extends GameEngine {
 				let enemy = new Enemy(value.centerPoint!.x!, value.centerPoint!.y!);
 				let shapes = enemy.create();
 
+				delete this.hitBox[0].boxes[key];
+
+				await new Promise((r) => setTimeout(r, 200));
+
 				this.scene[1].shapes.push(shapes);
 				renderShapes([shapes], this.scene[1].c, this.width, this.height);
-				delete this.hitBox[0].boxes[key];
 				this.checkWon(value.centerPoint!.x!, value.centerPoint!.y!, -1);
 				this.moves--;
 			}
