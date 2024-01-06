@@ -73,8 +73,6 @@ export default class TicTacToe extends GameEngine {
 		}
 	}
 
-	putPiece() {}
-
 	update(e: PointerEvent) {
 		let x = e.clientX - this.container.offsetLeft;
 		let y = e.clientY - this.container.offsetTop;
@@ -102,7 +100,7 @@ export default class TicTacToe extends GameEngine {
 
 				this.scene[1].shapes.push(shapes);
 				renderShapes([shapes], this.scene[1].c, this.width, this.height);
-				delete (this.hitBox[0].boxes as Record<string, Shape>)[key];
+				delete this.hitBox[0].boxes[key];
 				this.checkWon(value.centerPoint!.x!, value.centerPoint!.y!, -1);
 				this.moves--;
 			}
@@ -112,6 +110,7 @@ export default class TicTacToe extends GameEngine {
 	reset() {
 		this.scene[1].reset();
 		this.hitBox[0].reset();
+		this.scene[1].clean(this.width, this.height);
 		this.initialBoxes();
 		this.hitBox[0].renderBoxes(this.width, this.height);
 		this.lines = [0, 0, 0];
@@ -119,7 +118,6 @@ export default class TicTacToe extends GameEngine {
 		this.diagonal = 0;
 		this.reverseDiagonal = 0;
 		this.moves = 9;
-		this.initialState();
 	}
 
 	checkWon(x: number, y: number, point: number) {
