@@ -6,17 +6,27 @@
 <script lang="ts" setup>
 let container: HTMLDivElement;
 let engine: typeof TicTacToe.prototype;
+let update: (e: PointerEvent) => void
+let resize: () => void
 
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
 
-    engine = new TicTacToe(container, 2, 1);
+    engine = new TicTacToe(container);
 
-    window.addEventListener('resize', () => engine.resize());
-    engine.hitBox[0].canvas.addEventListener('pointerup', (e) => engine.update(e))
+    update = (e: PointerEvent) => {
+        engine.update(e)
+    }
+
+    resize = () => {
+        engine.resize()
+    }
+
+    window.addEventListener('resize', resize);
+    engine.hitBox[0].canvas.addEventListener('pointerup', update)
 });
 onUnmounted(() => {
-    window.removeEventListener('resize', () => engine.resize());
-    engine.hitBox[0].canvas.removeEventListener('pointerup', (e) => engine.update(e))
+    window.removeEventListener('resize', resize);
+    engine.hitBox[0].canvas.removeEventListener('pointerup', update)
 });
 </script>

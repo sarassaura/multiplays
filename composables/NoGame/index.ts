@@ -2,12 +2,11 @@ import { createRect } from '../BasicShapes';
 import GameEngine from '../GameEngine';
 
 export default class NoGame extends GameEngine {
-	constructor(
-		container: HTMLDivElement,
-		background: number,
-		clickable: number
-	) {
-		super(container, background, clickable);
+	constructor(container: HTMLDivElement) {
+		super(container);
+
+		this.scene.push(new Layer(container));
+		this.hitBox.push(new Layer(container, { inv: true }));
 
 		this.initialState();
 		this.resizeCanvas();

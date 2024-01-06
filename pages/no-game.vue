@@ -10,7 +10,7 @@ let engine: typeof NoGame.prototype;
 onMounted(() => {
     container = document.querySelector('#container') as HTMLDivElement;
 
-    engine = new NoGame(container, 1, 1);
+    engine = new NoGame(container);
 
     window.addEventListener('resize', () => engine.resize());
     engine.hitBox[0].canvas.addEventListener('pointerup', (e) => engine.update(e))

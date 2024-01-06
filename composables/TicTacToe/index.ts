@@ -16,12 +16,12 @@ export default class TicTacToe extends GameEngine {
 	reverseDiagonal: number;
 	board: Array<[number, number, number, number]>;
 	moves: number;
-	constructor(
-		container: HTMLDivElement,
-		background: number,
-		clickable: number
-	) {
-		super(container, background, clickable);
+	constructor(container: HTMLDivElement) {
+		super(container);
+
+		this.scene.push(new Layer(container));
+		this.scene.push(new Layer(container));
+		this.hitBox.push(new Layer(container, { w: 300, h: 300, inv: true }));
 
 		this.board = [
 			[-50, -150, -50, 150],
@@ -74,8 +74,9 @@ export default class TicTacToe extends GameEngine {
 	}
 
 	async update(e: PointerEvent) {
-		let x = e.clientX - this.container.offsetLeft;
-		let y = e.clientY - this.container.offsetTop;
+		let layer = this.hitBox[0].canvas.getBoundingClientRect();
+		let x = e.clientX - layer.left;
+		let y = e.clientY - layer.top;
 		let rgb = this.hitBox[0].c.getImageData(x, y, 1, 1).data;
 		let box = this.hitBox[0].boxes[
 			rgb[0] + ',' + rgb[1] + ',' + rgb[2]
