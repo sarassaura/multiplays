@@ -2,16 +2,36 @@ import { createRect } from '../BasicShapes';
 import GameEngine from '../GameEngine';
 
 export default class NoGame extends GameEngine {
-	shapes: Array<Shape>;
+	scene: Array<typeof Layer.prototype>;
+	hitBox: Array<typeof Layer.prototype>;
 	constructor(
 		container: HTMLDivElement,
-		canvas: typeof Layer.prototype,
-		hitBox: typeof Layer.prototype
+		background: number,
+		clickable: number
 	) {
-		super(container, canvas, hitBox);
-		this.shapes = [];
+		super(container);
+		this.scene = [];
+		this.hitBox = [];
+
+		for (let i = 0; i < background; i++) {
+			this.scene.push(new Layer(container, []));
+		}
+
+		for (let i = 0; i < clickable; i++) {
+			let layer = new Layer(container, {});
+			layer.invisible();
+			this.hitBox.push(layer);
+		}
+
 		this.initialState();
-		this.resize();
+		this.resizeCanvas();
+
+		renderShapes(
+			this.scene[0].storage as Shape[],
+			this.scene[0].c,
+			this.width,
+			this.height
+		);
 	}
 
 	resize() {
@@ -19,21 +39,27 @@ export default class NoGame extends GameEngine {
 		this.render();
 	}
 
+	resizeCanvas() {
+		this.resetDimensions();
+		this.scene[0].resize(this.width, this.height);
+		this.hitBox[0].resize(this.width, this.height);
+	}
+
 	initialState() {
-		this.shapes.push(
+		(this.scene[0].storage as Shape[]).push(
 			createRect(200, 200, {
 				color: 'rgba(255,0,0,0.4)',
 				strokeColor: 'rgb(0,255,255)'
 			}) as Rect
 		);
-		this.shapes.push(
+		(this.scene[0].storage as Shape[]).push(
 			createRect(200, 200, {
 				x: 50,
 				y: 50,
 				color: 'rgba(0,255,0,0.4)'
 			}) as Rect
 		);
-		this.shapes.push(
+		(this.scene[0].storage as Shape[]).push(
 			createRect(200, 200, {
 				x: -50,
 				y: -50,
@@ -43,17 +69,22 @@ export default class NoGame extends GameEngine {
 	}
 
 	cleanCanvas() {
-		this.ctx.clearRect(0, 0, this.width, this.height);
-		this.c.clearRect(0, 0, this.width, this.height);
+		this.scene[0].clean(this.width, this.height);
+		this.hitBox[0].clean(this.width, this.height);
 	}
 
 	render() {
 		this.cleanCanvas();
-		renderShapes(this.shapes, this.ctx, this.width, this.height);
+		renderShapes(
+			this.scene[0].storage as Shape[],
+			this.scene[0].c,
+			this.width,
+			this.height
+		);
 	}
 
 	update(e: PointerEvent) {
-		this.shapes?.forEach((shape) => {
+		(this.scene[0].storage as Shape[])?.forEach((shape) => {
 			if (shape.type == 'Rect') {
 				if (shape.options?.strokeColor) {
 					shape.options.strokeColor = undefined;
