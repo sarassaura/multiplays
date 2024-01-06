@@ -9,7 +9,7 @@ export default class NoGame extends GameEngine {
 		background: number,
 		clickable: number
 	) {
-		super(container);
+		super(container, background, clickable);
 		this.scene = [];
 		this.hitBox = [];
 
