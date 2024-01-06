@@ -22,6 +22,7 @@ export default class TicTacToe extends GameEngine {
 		this.scene.push(new Layer(container));
 		this.scene.push(new Layer(container));
 		this.hitBox.push(new Layer(container, { w: 300, h: 300, inv: true }));
+		this.hitBox.push(new Layer(container, { h: 50, w: 50, y: 200 }));
 
 		this.board = [
 			[-50, -150, -50, 150],
@@ -42,11 +43,13 @@ export default class TicTacToe extends GameEngine {
 
 		this.scene[0].renderShapes(this.width, this.height);
 		this.hitBox[0].renderBoxes(this.width, this.height);
+		this.hitBox[1].renderBoxes(this.width, this.height);
 	}
 
 	initialState() {
 		this.initialBoard();
 		this.initialBoxes();
+		this.initialButtons();
 	}
 
 	initialBoard() {
@@ -71,6 +74,23 @@ export default class TicTacToe extends GameEngine {
 				);
 			}
 		}
+	}
+
+	initialButtons() {
+		this.hitBox[1].createBoxes(createRect(100, 100) as Rect);
+	}
+
+	reset() {
+		this.scene[1].reset();
+		this.hitBox[0].reset();
+		this.scene[1].clean(this.width, this.height);
+		this.initialBoxes();
+		this.hitBox[0].renderBoxes(this.width, this.height);
+		this.lines = [0, 0, 0];
+		this.columns = [0, 0, 0];
+		this.diagonal = 0;
+		this.reverseDiagonal = 0;
+		this.moves = 9;
 	}
 
 	async update(e: PointerEvent) {
@@ -109,19 +129,6 @@ export default class TicTacToe extends GameEngine {
 				this.moves--;
 			}
 		}
-	}
-
-	reset() {
-		this.scene[1].reset();
-		this.hitBox[0].reset();
-		this.scene[1].clean(this.width, this.height);
-		this.initialBoxes();
-		this.hitBox[0].renderBoxes(this.width, this.height);
-		this.lines = [0, 0, 0];
-		this.columns = [0, 0, 0];
-		this.diagonal = 0;
-		this.reverseDiagonal = 0;
-		this.moves = 9;
 	}
 
 	checkWon(x: number, y: number, point: number) {

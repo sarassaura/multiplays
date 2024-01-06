@@ -14,15 +14,14 @@ export default class Layer {
 		this.canvas = document.createElement('canvas') as HTMLCanvasElement;
 		this.canvas.style.position = 'absolute';
 		this.c = this.canvas.getContext('2d')!;
-		// this.canvas.style.border = '1px solid red';
 
 		this.width = options?.w;
 		this.height = options?.h;
 		this.x = options?.x || 0;
 		this.y = options?.y || 0;
 
-		this.canvas.style.left = '50%';
-		this.canvas.style.top = '50%';
+		this.canvas.style.left = `calc(50% + ${this.x}px)`;
+		this.canvas.style.top = `calc(50% + ${this.y}px)`;
 		this.canvas.style.transform = 'translate(-50%, -50%)';
 
 		container.appendChild(this.canvas);
