@@ -16,26 +16,12 @@ export default class TicTacToe extends GameEngine {
 	reverseDiagonal: number;
 	board: Array<[number, number, number, number]>;
 	moves: number;
-	scene: Array<typeof Layer.prototype>;
-	hitBox: Array<typeof Layer.prototype>;
 	constructor(
 		container: HTMLDivElement,
 		background: number,
 		clickable: number
 	) {
-		super(container);
-		this.scene = [];
-		this.hitBox = [];
-
-		for (let i = 0; i < background; i++) {
-			this.scene.push(new Layer(container));
-		}
-
-		for (let i = 0; i < clickable; i++) {
-			let layer = new Layer(container);
-			layer.invisible();
-			this.hitBox.push(layer);
-		}
+		super(container, background, clickable);
 
 		this.board = [
 			[-50, -150, -50, 150],
@@ -53,29 +39,6 @@ export default class TicTacToe extends GameEngine {
 		this.columns = [0, 0, 0];
 		this.diagonal = 0;
 		this.reverseDiagonal = 0;
-
-		this.scene[0].renderShapes(this.width, this.height);
-		this.hitBox[0].renderBoxes(this.width, this.height);
-	}
-
-	resize() {
-		this.resizeCanvas();
-		this.render();
-	}
-
-	resizeCanvas() {
-		this.resetDimensions();
-		this.scene[0].resize(this.width, this.height);
-		this.hitBox[0].resize(this.width, this.height);
-	}
-
-	cleanCanvas() {
-		this.scene[0].clean(this.width, this.height);
-		this.hitBox[0].clean(this.width, this.height);
-	}
-
-	render() {
-		this.cleanCanvas();
 
 		this.scene[0].renderShapes(this.width, this.height);
 		this.hitBox[0].renderBoxes(this.width, this.height);
