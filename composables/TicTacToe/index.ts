@@ -29,7 +29,7 @@ export default class TicTacToe extends GameEngine {
 			}
 		}
 
-		this.hitBox.push(new Layer(container, { h: 50, w: 50, y: 200 }));
+		this.hitBox.push(new Layer(container, { h: 50, w: 50, y: 250 }));
 
 		this.board = [
 			[-50, -150, -50, 150],
