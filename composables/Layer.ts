@@ -7,9 +7,17 @@ export default class Layer {
 	y?: number;
 	width?: number;
 	height?: number;
+	rot: boolean;
 	constructor(
 		container: HTMLDivElement,
-		options?: { x?: number; y?: number; w?: number; h?: number; inv?: boolean }
+		options?: {
+			x?: number;
+			y?: number;
+			w?: number;
+			h?: number;
+			inv?: boolean;
+			rot?: boolean;
+		}
 	) {
 		this.canvas = document.createElement('canvas') as HTMLCanvasElement;
 		this.canvas.style.position = 'absolute';
@@ -19,6 +27,7 @@ export default class Layer {
 		this.height = options?.h;
 		this.x = options?.x || 0;
 		this.y = options?.y || 0;
+		this.rot = options?.rot || false;
 
 		this.canvas.style.left = `calc(50% + ${this.x}px)`;
 		this.canvas.style.top = `calc(50% + ${this.y}px)`;
@@ -41,6 +50,16 @@ export default class Layer {
 	resize(width: number, height: number) {
 		this.canvas.height = this.height || height;
 		this.canvas.width = this.width || width;
+
+		if (this.rot) {
+			if (width > height && height < 500) {
+				this.canvas.style.left = `calc(50% + ${this.y}px)`;
+				this.canvas.style.top = `calc(50% + ${this.x}px)`;
+			} else {
+				this.canvas.style.left = `calc(50% + ${this.x}px)`;
+				this.canvas.style.top = `calc(50% + ${this.y}px)`;
+			}
+		}
 	}
 
 	renderShapes(width: number, height: number) {

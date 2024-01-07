@@ -11,7 +11,9 @@ let reset: () => void
 
 onMounted(() => {
     container = document.querySelector('#game') as HTMLDivElement;
-    container.requestFullscreen({ navigationUI: "hide" })
+    if (document.fullscreenEnabled) {
+        container.requestFullscreen({ navigationUI: "hide" })
+    }
 
     engine = new TicTacToe(container);
 
