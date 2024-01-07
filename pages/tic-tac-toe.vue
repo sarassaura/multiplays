@@ -26,28 +26,28 @@ onMounted(() => {
     }
 
     window.addEventListener('resize', resize);
-    engine.hitBox[0].canvas.addEventListener('pointerup', (e) => engine.update(e, 0))
-    engine.hitBox[1].canvas.addEventListener('pointerup', (e) => engine.update(e, 1))
-    engine.hitBox[2].canvas.addEventListener('pointerup', (e) => engine.update(e, 2))
-    engine.hitBox[3].canvas.addEventListener('pointerup', (e) => engine.update(e, 3))
-    engine.hitBox[4].canvas.addEventListener('pointerup', (e) => engine.update(e, 4))
-    engine.hitBox[5].canvas.addEventListener('pointerup', (e) => engine.update(e, 5))
-    engine.hitBox[6].canvas.addEventListener('pointerup', (e) => engine.update(e, 6))
-    engine.hitBox[7].canvas.addEventListener('pointerup', (e) => engine.update(e, 7))
-    engine.hitBox[8].canvas.addEventListener('pointerup', (e) => engine.update(e, 8))
-    engine.hitBox[9].canvas.addEventListener('pointerup', reset)
+    engine.button[0].el.addEventListener('pointerup', () => engine.update(0))
+    engine.button[1].el.addEventListener('pointerup', () => engine.update(1))
+    engine.button[2].el.addEventListener('pointerup', () => engine.update(2))
+    engine.button[3].el.addEventListener('pointerup', () => engine.update(3))
+    engine.button[4].el.addEventListener('pointerup', () => engine.update(4))
+    engine.button[5].el.addEventListener('pointerup', () => engine.update(5))
+    engine.button[6].el.addEventListener('pointerup', () => engine.update(6))
+    engine.button[7].el.addEventListener('pointerup', () => engine.update(7))
+    engine.button[8].el.addEventListener('pointerup', () => engine.update(8))
+    engine.button[9].el.addEventListener('pointerup', reset)
 });
 onUnmounted(() => {
     window.removeEventListener('resize', resize);
-    engine.hitBox[0].canvas.addEventListener('pointerup', (e) => engine.update(e, 0))
-    engine.hitBox[1].canvas.addEventListener('pointerup', (e) => engine.update(e, 1))
-    engine.hitBox[2].canvas.addEventListener('pointerup', (e) => engine.update(e, 2))
-    engine.hitBox[3].canvas.addEventListener('pointerup', (e) => engine.update(e, 3))
-    engine.hitBox[4].canvas.addEventListener('pointerup', (e) => engine.update(e, 4))
-    engine.hitBox[5].canvas.addEventListener('pointerup', (e) => engine.update(e, 5))
-    engine.hitBox[6].canvas.addEventListener('pointerup', (e) => engine.update(e, 6))
-    engine.hitBox[7].canvas.addEventListener('pointerup', (e) => engine.update(e, 7))
-    engine.hitBox[8].canvas.addEventListener('pointerup', (e) => engine.update(e, 8))
-    engine.hitBox[9].canvas.addEventListener('pointerup', reset)
+    engine.button[0].el.addEventListener('pointerup', () => engine.update(0))
+    engine.button[1].el.addEventListener('pointerup', () => engine.update(1))
+    engine.button[2].el.addEventListener('pointerup', () => engine.update(2))
+    engine.button[3].el.addEventListener('pointerup', () => engine.update(3))
+    engine.button[4].el.addEventListener('pointerup', () => engine.update(4))
+    engine.button[5].el.addEventListener('pointerup', () => engine.update(5))
+    engine.button[6].el.addEventListener('pointerup', () => engine.update(6))
+    engine.button[7].el.addEventListener('pointerup', () => engine.update(7))
+    engine.button[8].el.addEventListener('pointerup', () => engine.update(8))
+    engine.button[9].el.addEventListener('pointerup', reset)
 });
 </script>

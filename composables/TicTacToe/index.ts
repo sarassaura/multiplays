@@ -25,11 +25,13 @@ export default class TicTacToe extends GameEngine {
 
 		for (let i = -100; i <= 100; i += 100) {
 			for (let j = -100; j <= 100; j += 100) {
-				this.hitBox.push(new Layer(container, { w: 100, h: 100, x: j, y: i }));
+				this.button.push(new Button(container, { w: 100, h: 100, x: j, y: i }));
 			}
 		}
 
-		this.hitBox.push(new Layer(container, { h: 50, w: 50, y: 250, rot: true }));
+		this.button.push(
+			new Button(container, { h: 50, w: 50, y: 250, rot: true })
+		);
 
 		this.board = [
 			[-50, -150, -50, 150],
@@ -55,7 +57,6 @@ export default class TicTacToe extends GameEngine {
 
 	initialState() {
 		this.initialBoard();
-		this.initialButtons();
 	}
 
 	initialBoard() {
@@ -69,10 +70,6 @@ export default class TicTacToe extends GameEngine {
 		});
 	}
 
-	initialButtons() {
-		this.hitBox[9].createBoxes(createRect(100, 100) as Rect);
-	}
-
 	reset() {
 		this.scene[1].reset();
 		this.cleanScene(1);
@@ -84,7 +81,7 @@ export default class TicTacToe extends GameEngine {
 		this.played = [];
 	}
 
-	async update(e: PointerEvent, s: number) {
+	async update(s: number) {
 		if (this.moves % 2 == 1 && !this.played.includes(s)) {
 			let X = this.toCoord(s);
 			let player = new Player(X.x, X.y);

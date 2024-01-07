@@ -19,7 +19,7 @@ export default class Layer {
 			rot?: boolean;
 		}
 	) {
-		this.canvas = document.createElement('canvas') as HTMLCanvasElement;
+		this.canvas = document.createElement('canvas');
 		this.canvas.style.position = 'absolute';
 		this.c = this.canvas.getContext('2d')!;
 
@@ -88,6 +88,15 @@ export default class Layer {
 		let random = randomColor(this.boxes);
 		shape.options!.color = `rgb(${random})`;
 		this.boxes[random] = shape;
+	}
+
+	getPixelColor(e: PointerEvent) {
+		let rect = this.canvas.getBoundingClientRect();
+		let x = e.pageX - rect.left;
+		let y = e.pageY - rect.top;
+		let color = this.c.getImageData(x, y, 1, 1).data;
+
+		return color[0] + ',' + color[1] + ',' + color[2];
 	}
 
 	reset() {

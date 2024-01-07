@@ -4,6 +4,7 @@ export default class GameEngine {
 	height: number;
 	scene: Array<typeof Layer.prototype>;
 	hitBox: Array<typeof Layer.prototype>;
+	button: Array<typeof Button.prototype>;
 	constructor(container: HTMLDivElement) {
 		this.container = container;
 
@@ -12,6 +13,7 @@ export default class GameEngine {
 
 		this.scene = [];
 		this.hitBox = [];
+		this.button = [];
 	}
 
 	resetDimensions() {
@@ -23,6 +25,7 @@ export default class GameEngine {
 		this.resetDimensions();
 		this.scene.forEach((layer) => layer.resize(this.width, this.height));
 		this.hitBox.forEach((layer) => layer.resize(this.width, this.height));
+		this.button.forEach((button) => button.resize(this.width, this.height));
 	}
 
 	resize() {
