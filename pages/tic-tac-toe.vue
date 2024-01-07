@@ -1,7 +1,4 @@
-<template>
-    <div class="flex flex-col w-full h-full relative" id="container">
-    </div>
-</template>
+<template></template>
 
 <script lang="ts" setup>
 definePageMeta({
@@ -13,7 +10,7 @@ let resize: () => void
 let reset: () => void
 
 onMounted(() => {
-    container = document.querySelector('#container') as HTMLDivElement;
+    container = document.querySelector('#game') as HTMLDivElement;
 
     engine = new TicTacToe(container);
 

@@ -1,7 +1,4 @@
-<template>
-    <div class="flex flex-col w-full h-full relative" id="container">
-    </div>
-</template>
+<template></template>
 
 <script lang="ts" setup>
 definePageMeta({
@@ -11,7 +8,7 @@ let container: HTMLDivElement;
 let engine: typeof NoGame.prototype;
 
 onMounted(() => {
-    container = document.querySelector('#container') as HTMLDivElement;
+    container = document.querySelector('#game') as HTMLDivElement;
 
     engine = new NoGame(container);
 

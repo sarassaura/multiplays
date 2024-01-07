@@ -3,14 +3,11 @@
         <header>
             <nav class="flex w-full justify-between bg-zinc-700 p-4">
                 <NuxtLink to="/">Multiplays</NuxtLink>
-                <ul class="flex gap-4">
+                <!-- <ul class="flex gap-4">
                     <li>
                         <NuxtLink to="/">Home</NuxtLink>
                     </li>
-                    <li>
-                        <NuxtLink to="/about">About</NuxtLink>
-                    </li>
-                </ul>
+                </ul> -->
             </nav>
         </header>
         <main class="flex flex-grow justify-center items-center bg-zinc-900">
