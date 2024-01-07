@@ -41,14 +41,6 @@ export default class Layer {
 	resize(width: number, height: number) {
 		this.canvas.height = this.height || height;
 		this.canvas.width = this.width || width;
-
-		if (height <= 360) {
-			this.canvas.style.left = `calc(50% + ${this.y}px)`;
-			this.canvas.style.top = `calc(50% + ${this.x}px)`;
-		} else {
-			this.canvas.style.left = `calc(50% + ${this.x}px)`;
-			this.canvas.style.top = `calc(50% + ${this.y}px)`;
-		}
 	}
 
 	renderShapes(width: number, height: number) {
