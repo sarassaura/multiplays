@@ -38,9 +38,6 @@ export default class TicTacToe extends GameEngine {
 			[-150, 50, 150, 50]
 		];
 
-		this.initialState();
-		this.resizeCanvas();
-
 		this.moves = 9;
 		this.played = [];
 
@@ -48,6 +45,9 @@ export default class TicTacToe extends GameEngine {
 		this.columns = [0, 0, 0];
 		this.diagonal = 0;
 		this.reverseDiagonal = 0;
+
+		this.initialState();
+		this.resizeCanvas();
 
 		this.renderScenes();
 		this.renderBoxes();
