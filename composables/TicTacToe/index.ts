@@ -49,8 +49,8 @@ export default class TicTacToe extends GameEngine {
 		this.diagonal = 0;
 		this.reverseDiagonal = 0;
 
-		this.scene.forEach((one) => one.renderShapes(this.width, this.height));
-		this.hitBox.forEach((one) => one.renderBoxes(this.width, this.height));
+		this.renderScenes();
+		this.renderBoxes();
 	}
 
 	initialState() {
@@ -75,8 +75,7 @@ export default class TicTacToe extends GameEngine {
 
 	reset() {
 		this.scene[1].reset();
-		this.scene[1].clean(this.width, this.height);
-		this.hitBox.forEach((one) => one.renderBoxes(this.width, this.height));
+		this.cleanScene(1);
 		this.lines = [0, 0, 0];
 		this.columns = [0, 0, 0];
 		this.diagonal = 0;

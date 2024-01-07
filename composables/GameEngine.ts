@@ -35,10 +35,34 @@ export default class GameEngine {
 		this.hitBox.forEach((layer) => layer.clean(this.width, this.height));
 	}
 
+	cleanBoxes() {
+		this.hitBox.forEach((layer) => layer.clean(this.width, this.height));
+	}
+
+	cleanScenes() {
+		this.scene.forEach((layer) => layer.clean(this.width, this.height));
+	}
+
+	cleanBox(id: number) {
+		this.hitBox[id].clean(this.width, this.height);
+	}
+
+	cleanScene(id: number) {
+		this.scene[id].clean(this.width, this.height);
+	}
+
 	render() {
 		this.cleanCanvas();
 
 		this.scene.forEach((layer) => layer.renderShapes(this.width, this.height));
 		this.hitBox.forEach((layer) => layer.renderBoxes(this.width, this.height));
+	}
+
+	renderBoxes() {
+		this.hitBox.forEach((layer) => layer.renderBoxes(this.width, this.height));
+	}
+
+	renderScenes() {
+		this.scene.forEach((layer) => layer.renderShapes(this.width, this.height));
 	}
 }
