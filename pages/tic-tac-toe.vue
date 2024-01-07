@@ -4,6 +4,9 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+    layout: 'game'
+})
 let container: HTMLDivElement;
 let engine: typeof TicTacToe.prototype;
 let resize: () => void
