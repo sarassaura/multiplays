@@ -29,9 +29,9 @@ export default class TicTacToe extends GameEngine {
 			}
 		}
 
-		this.button.push(
-			new Button(container, { h: 50, w: 50, y: 250, rot: true })
-		);
+		// this.button.push(
+		// 	new Button(container, { h: 50, w: 50, y: 250, rot: true })
+		// );
 
 		this.board = [
 			[-50, -150, -50, 150],
