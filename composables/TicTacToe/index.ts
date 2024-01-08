@@ -83,12 +83,11 @@ export default class TicTacToe extends GameEngine {
 
 	async update(s: number) {
 		if (this.moves % 2 == 1 && !this.played.includes(s)) {
-			let X = this.toCoord(s);
-			let player = new Player(X.x, X.y);
+			let player = new Player(...this.toCoord(s));
 			this.scene[1].shapes.push(...player.create());
 			renderShapes(player.create(), this.scene[1].c, this.width, this.height);
 			this.played.push(s);
-			this.checkWon(X.x, X.y, 1);
+			this.checkWon(...this.toCoord(s), 1);
 			this.moves--;
 
 			if (this.moves > 0) {
@@ -97,16 +96,16 @@ export default class TicTacToe extends GameEngine {
 					random = randomNumber(9);
 				} while (this.played.includes(random));
 
-				let O = this.toCoord(random);
-				let enemy = new Enemy(O.x, O.y);
+				let enemy = new Enemy(...this.toCoord(random));
 				let shapes = enemy.create();
 
 				this.played.push(random);
+
 				await new Promise((r) => setTimeout(r, 200));
 
 				this.scene[1].shapes.push(shapes);
 				renderShapes([shapes], this.scene[1].c, this.width, this.height);
-				this.checkWon(O.x, O.y, -1);
+				this.checkWon(...this.toCoord(random), -1);
 				this.moves--;
 			}
 		}
@@ -163,16 +162,13 @@ export default class TicTacToe extends GameEngine {
 		}
 	}
 
-	toCoord(n: number) {
+	toCoord(n: number): [number, number] {
 		let line = Math.floor(n / 3);
 		let col = n - line * 3;
 
 		let x = (col - 1) * 100;
 		let y = (line - 1) * 100;
 
-		return {
-			x,
-			y
-		};
+		return [x, y];
 	}
 }
